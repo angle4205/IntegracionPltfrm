@@ -1,0 +1,72 @@
+@font-face {
+  font-family: "FuturaTitle";
+  src: url("../fonts/Futura\ Std\ Extra\ Bold.ttf");
+}
+
+@font-face {
+  font-family: "FuturaSubtitle";
+  src: url("../fonts/Futura\ Std\ Heavy.ttf");
+}
+
+@font-face {
+  font-family: "FuturaP";
+  src: url("../fonts/Futura\ Std\ Book.ttf");
+}
+
+h1 {
+  font-family: "FuturaTitle", serif;
+}
+
+#brand {
+  font-family: "FuturaTitle", serif;
+}
+
+h2 {
+  font-family: "FuturaSubtitle", serif;
+}
+
+li {
+  font-family: "FuturaSubtitle", serif;
+}
+
+p {
+  font-family: "FuturaP", sans-serif;
+}
+
+body {
+  background-color: white;
+  color: black;
+}
+.navbar {
+  background-color: black;
+}
+.navbar-brand,
+.nav-link {
+  color: white !important;
+}
+.section {
+  padding: 100px 0;
+}
+.carousel-item img {
+  object-fit: cover;
+  width: 100vw;
+}
+.text-container {
+  position: relative;
+  padding: 100px;
+  z-index: 2;
+}
+.text-white {
+  margin-right: 45px;
+}
+.text-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100%;
+  background: black;
+  clip-path: polygon(0% 0%, 95% 0%, 100% 100%, 0% 100%);
+  z-index: -1;
+}

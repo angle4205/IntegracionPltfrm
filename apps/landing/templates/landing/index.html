@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing Page</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <link rel="stylesheet" href="../../static/css/index.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      
+      <div class="container">
+        <a class="navbar-brand" href="#" id="brand">INDEX</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="#">LI1</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">LI2</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">LI3</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="carousel slide" id="carouselExample" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img
+            src="../../static/img/1slide.jpg"
+            class="d-block w-100"
+            alt="Slide 1"
+          />
+        </div>
+        <div class="carousel-item">
+          <img
+            src="../../static/img/2slide.jpg"
+            class="d-block w-100"
+            alt="Slide 2"
+          />
+        </div>
+        <div class="carousel-item">
+          <img
+            src="../../static/img/3slide.jpg"
+            class="d-block w-100"
+            alt="Slide 3"
+          />
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExample"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExample"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <div class="container mt-1">
+      <div class="row text-center">
+        <div class="col-md-4 section" data-aos="fade-up" data-aos-delay="200">
+          <h2>Proyecto</h2>
+          <p>Integracion de plataformas Seccion 001D, Docente DAVID LARRONDO</p>
+        </div>
+
+        <div class="col-md-4 section" data-aos="fade-up" data-aos-delay="400">
+          <h2>Objetivo</h2>
+          <p>
+            Desarrollar una web con el fin de integrar un servicio, siguiendo
+            todas las practicas aprendidas en cursos anteriores.
+          </p>
+        </div>
+
+        <div class="col-md-4 section" data-aos="fade-up" data-aos-delay="800">
+          <h2>Grupo</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam exercitationem et veniam.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-1">
+      <div
+        class="row align-items-center section"
+        data-aos="fade-right"
+        data-aos-delay="750"
+      >
+        <div class="col-md-6 text-container">
+          <h2 class="text-white">Corte klao</h2>
+          <p class="text-white">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores
+            corporis rem delectus soluta doloribus nostrum ducimus aut. Dolorem,
+            hic consectetur obcaecati velit tempore, quod ducimus qui aperiam
+            eum provident quos.
+          </p>
+        </div>
+
+        <div class="col-md-6 text-center">
+          <img
+            src="../../static/img/highlight.png"
+            class="img-fluid"
+            alt="img"
+          />
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init()({
+        once: true,
+      });
+    </script>
+  </body>
+</html>
