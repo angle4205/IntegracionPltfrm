@@ -1,0 +1,64 @@
+@font-face {
+  font-family: "FuturaTitle";
+  src: url("../fonts/Futura\ Std\ Extra\ Bold.ttf");
+}
+
+@font-face {
+  font-family: "FuturaSubtitle";
+  src: url("../fonts/Futura\ Std\ Heavy.ttf");
+}
+
+@font-face {
+  font-family: "FuturaP";
+  src: url("../fonts/Futura\ Std\ Book.ttf");
+}
+
+body {
+  background-color: white;
+  color: black;
+}
+
+#brand {
+  font-family: "FuturaTitle", serif;
+}
+
+h1 {
+  font-family: "FuturaTitle", serif;
+}
+
+h2 {
+  font-family: "FuturaSubtitle", serif;
+}
+
+h5 {
+  font-family: "FuturaSubtitle", serif;
+}
+
+p {
+  font-family: "FuturaP", sans-serif;
+}
+
+a {
+  font-family: "FuturaP", sans-serif;
+}
+
+li {
+  font-family: "FuturaSubtitle", serif;
+}
+
+/* NAVBAR:*/
+.navbar {
+  background-color: black;
+}
+
+.navbar-brand,
+.nav-link {
+  color: white !important;
+}
+
+/* FOOTER:*/
+
+.footer {
+  background-color: black;
+  color: white;
+}
