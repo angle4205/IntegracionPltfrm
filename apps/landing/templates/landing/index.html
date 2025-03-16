@@ -1,11 +1,8 @@
-{% extends 'base.html' %}
-{% load static %} 
-{% block title %}Inicio{% endblock %} 
+{% extends 'base.html' %} {% load static %} {% block title %}Inicio{% endblock%}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}" />
-{% endblock %} 
+{% endblock %} {% block content %}
 
-{% block content %}
 <div class="carousel slide" id="carouselExample" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -49,17 +46,80 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
+<br />
+<div class="container mt-4">
+  <div class="card bg-light">
+    <div class="card-body bg-light">
+      <h1>BRAND</h1>
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis
+        doloribus, impedit sunt aperiam perferendis dolor placeat corrupti,
+        quaerat rem voluptates ducimus molestiae, necessitatibus vel velit
+        adipisci tempora saepe commodi ab! Lorem, ipsum dolor sit amet
+        consectetur adipisicing elit. Quaerat, pariatur numquam? Repellat
+        similique fugit, a saepe dolorem, veritatis corporis quo magni, harum
+        deleniti ullam omnis distinctio ab quam nemo eligendi.
+      </p>
+    </div>
+    <div class="card-footer bg-light">
+      <marquee>
+        <img
+          src="{% static 'img/amiriBrand.png' %}"
+          alt="Amiri"
+          class="brand-img"
+        />
+
+        <img
+          src="{% static 'img/flightBrand.png' %}"
+          alt="Flight"
+          class="brand-img"
+        />
+
+        <img
+          src="{% static 'img/nikeBrand.png' %}"
+          alt="Nike"
+          class="brand-img"
+        />
+
+        <img
+          src="{% static 'img/topBrand.png' %}"
+          alt="Nike"
+          class="brand-img"
+        />
+        <img
+          src="{% static 'img/calvinBrand.png' %}"
+          alt="Nike"
+          class="brand-img"
+        />
+        <img
+          src="{% static 'img/logitechBrand.png' %}"
+          alt="Nike"
+          class="brand-img"
+        />
+        <img
+          src="{% static 'img/nvidiaBrand.png' %}"
+          alt="Nike"
+          class="brand-img"
+        />
+      </marquee>
+    </div>
+  </div>
+</div>
 
 <div class="container mt-4">
   <div class="row text-center">
     <div class="col-md-4 section" data-aos="fade-up" data-aos-duration="2000">
       <h2>Lorem</h2>
-      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum accusamus enim adipisci molestias accusantium fugit.</p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum
+        accusamus enim adipisci molestias accusantium fugit.
+      </p>
     </div>
     <div class="col-md-4 section" data-aos="fade-up" data-aos-duration="2000">
       <h2>Lorem</h2>
       <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam ullam quis expedita aut id? Nihil dolorem vero ipsa recusandae.
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam ullam
+        quis expedita aut id? Nihil dolorem vero ipsa recusandae.
       </p>
     </div>
     <div class="col-md-4 section" data-aos="fade-up" data-aos-duration="2000">
@@ -73,9 +133,9 @@
   <div
     class="row align-items-center section"
     data-aos="fade-right"
-    data-aos-delay="750"
-    data-aos-duration="2000"
-    style="padding-top: 0px; padding-bottom: 100px;"
+    data-aos-delay="100"
+    data-aos-duration="2900"
+    style="padding-top: 0px; padding-bottom: 100px"
   >
     <div class="col-md-6 text-container">
       <h2 class="text-white">Corte Klao</h2>
@@ -93,8 +153,7 @@
     </div>
   </div>
 </div>
-{% endblock %} 
-{% block extra_js %}
+{% endblock %} {% block extra_js %}
 <script>
   console.log("Index page loaded");
 </script>
