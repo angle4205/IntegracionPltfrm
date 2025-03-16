@@ -26,10 +26,10 @@
 }
 
 .brand-img {
-  width: 55px; /* Ajusta el tamaño según necesites */
-  height: 55px; /* Mantén cuadrado */
-  object-fit: contain; /* Mantiene la proporción y muestra todo */
-  border-radius: 10px; /* Opcional, para bordes redondeados */
-  padding: 5px; /* Espaciado interno */
-  background-color: white; /* Fondo para imágenes con transparencia */
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: white;
 }

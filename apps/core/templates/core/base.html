@@ -27,7 +27,9 @@
     {% include 'partials/_navbar.html' %}
 
     <!-- Block for main content -->
-    <main>{% block content %}{% endblock %}</main>
+    <main class="main-content">
+      {% block content %}{% endblock %}
+    </main>
 
     {% include 'partials/_footer.html' %}
 

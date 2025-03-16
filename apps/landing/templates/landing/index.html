@@ -1,7 +1,10 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Inicio{% endblock%}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %} Main page {% endblock%}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/index.css' %}" />
-{% endblock %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/landing.css' %}" />
+{% endblock %} 
+{% block content %}
 
 <div class="carousel slide" id="carouselExample" data-bs-ride="carousel">
   <div class="carousel-inner">

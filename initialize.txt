@@ -7,3 +7,5 @@
 4. python manage.py runserver   
 
 python manage.py migrate    
+
+Ctrl + Shift + R

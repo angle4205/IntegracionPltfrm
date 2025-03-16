@@ -24,6 +24,7 @@ body {
 
 h1 {
   font-family: "FuturaTitle", serif;
+  text-transform: uppercase;
 }
 
 h2 {
@@ -43,7 +44,21 @@ a {
 }
 
 li {
-  font-family: "FuturaSubtitle", serif;
+  font-family: "FuturaP", serif;
+}
+
+/* MAIN: */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main.main-content {
+  flex-grow: 1;
 }
 
 /* NAVBAR:*/
@@ -53,6 +68,7 @@ li {
 
 .navbar-brand,
 .nav-link {
+  
   color: white !important;
 }
 
@@ -61,4 +77,6 @@ li {
 .footer {
   background-color: black;
   color: white;
+  padding: 15px 0;
+  width: 100%;
 }
