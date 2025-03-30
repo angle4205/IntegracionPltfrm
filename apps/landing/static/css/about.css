@@ -1,0 +1,32 @@
+.information-list .list-group-item {
+  margin-right: 10px;
+  margin-left: 10px;
+  font-size: 1.1rem;
+  padding: 20px;
+  border: 1px solid #f1f1f1;
+  margin-bottom: 15px;
+  background-color: rgb(247, 247, 247);
+  transition: background-color 0.4s ease;
+  border-radius: 30px;
+}
+
+.list-group {
+ margin-bottom: 50px;
+ margin-top: 50px;
+}
+
+.information-list .list-group-item:hover {
+  background-color: rgb(235, 235, 235);
+}
+
+.information-list a {
+  text-decoration: none;
+  color: rgb(216, 64, 64);
+}
+
+.information-list a:hover {
+  text-decoration: underline;
+  color: rgb(100, 0, 0);
+}
+
+

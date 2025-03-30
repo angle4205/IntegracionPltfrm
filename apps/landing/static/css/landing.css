@@ -3,8 +3,23 @@
 }
 
 .carousel-item img {
-  object-fit: cover;
   width: 100vw;
+  height: 27vw;
+}
+
+#slide1 {
+  object-fit: cover;
+  object-position: 50% 20%;
+}
+
+#slide2 {
+  object-fit: cover;
+  object-position: 50% 20%;
+}
+
+#slide3 {
+  object-fit: cover;
+  object-position: 50% 90%;
 }
 
 .text-container {
@@ -20,9 +35,10 @@
   right: 0;
   width: 100vw;
   height: 100%;
-  background: black;
+  background: rgb(244, 187, 68);
   clip-path: polygon(0% 0%, 15% 100%, 100% 100%, 90% 0%);
   z-index: -1;
+  color:rgb(238, 238, 238); 
 }
 
 .brand-img {

@@ -1,3 +1,4 @@
+/* Fuentes globales */
 @font-face {
   font-family: "FuturaTitle";
   src: url("../fonts/Futura\ Std\ Extra\ Bold.ttf");
@@ -13,9 +14,10 @@
   src: url("../fonts/Futura\ Std\ Book.ttf");
 }
 
-body {
-  background-color: white;
-  color: black;
+/* Estilos generales para el cuerpo */
+body, html {
+  background-color: rgb(255, 255, 255);
+  color: rgb(3, 3, 3);
 }
 
 #brand {
@@ -47,8 +49,7 @@ li {
   font-family: "FuturaP", serif;
 }
 
-/* MAIN: */
-
+/* Main: */
 html, body {
   height: 100%;
   margin: 0;
@@ -61,22 +62,20 @@ main.main-content {
   flex-grow: 1;
 }
 
-/* NAVBAR:*/
+/* Navbar: */
 .navbar {
-  background-color: black;
+  background-color: rgb(216, 64, 64);
 }
 
 .navbar-brand,
 .nav-link {
-  
-  color: white !important;
+  color: rgb(238, 238, 238) !important;
 }
 
-/* FOOTER:*/
-
+/* Footer: */
 .footer {
-  background-color: black;
-  color: white;
+  background-color: rgb(216, 64, 64);
+  color: rgb(238, 238, 238);
   padding: 15px 0;
   width: 100%;
 }

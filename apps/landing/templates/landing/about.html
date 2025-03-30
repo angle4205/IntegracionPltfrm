@@ -1,15 +1,48 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Sobre Nosotros{% endblock %}
+{% block title %}Información{% endblock %}
 {% block extra_css %}
-
-{% endblock %} 
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
 {% block content %}
 <div class="container mt-5">
-    <h1>About</h1>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat natus nobis tempore odit repellat praesentium ipsa hic ab magnam enim. Quae quisquam accusamus sunt aliquam odio minus quas, cupiditate consequuntur?</li>
-        <li class="list-group-item">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat natus nobis tempore odit repellat praesentium ipsa hic ab magnam enim. Quae quisquam accusamus sunt aliquam odio minus quas, cupiditate consequuntur?</li>
+    <h1>Sobre Nosotros</h1>
+    <ul class="list-group list-group-flush information-list">
+        <li class="list-group-item information-list-item">
+            <strong>Historia</strong><br>
+            La ferretería Ferremas fue fundada en 1990 con el objetivo de ofrecer soluciones de calidad a los hogares y negocios de la comunidad. Desde su inicio, nos hemos comprometido a brindar productos duraderos y atención personalizada a todos nuestros clientes. A lo largo de los años, hemos crecido y expandido nuestras operaciones para satisfacer las necesidades cambiantes de nuestros clientes.
+        </li>
+        <li class="list-group-item information-list-item">
+            <strong>Visión</strong><br>
+            Nuestra visión es ser la ferretería líder en el mercado, reconocida por nuestra calidad de productos y por el excelente servicio al cliente. Queremos seguir siendo un referente en soluciones para el hogar y la industria, siempre innovando y mejorando en cada aspecto de nuestro negocio.
+        </li>
+        <li class="list-group-item information-list-item">
+            <strong>Misión</strong><br>
+            Nos esforzamos por ofrecer los mejores productos de ferretería a precios competitivos, respaldados por un servicio excepcional. Buscamos satisfacer las necesidades de nuestros clientes con productos de alta calidad y un equipo profesional dispuesto a ayudar en todo momento.
+        </li>
+        <li class="list-group-item information-list-item">
+            <strong>Valores</strong><br>
+            - <strong>Compromiso:</strong> Con nuestros clientes y la calidad de los productos.<br>
+            - <strong>Honestidad:</strong> En cada acción y en cada servicio que brindamos.<br>
+            - <strong>Responsabilidad:</strong> Con el medio ambiente y nuestras comunidades.<br>
+            - <strong>Innovación:</strong> Siempre en búsqueda de nuevas soluciones para nuestros clientes.
+        </li>
+        <li class="list-group-item information-list-item">
+            <strong>Datos de Contacto</strong><br>
+            <ul class="mt-2">
+                <li><strong>Correo Electrónico:</strong> <a href="mailto:contacto@ferremas.com">contacto@ferremas.com</a></li>
+                <li><strong>Teléfono: </strong>+56 9 6514 0176</li>
+                <li><strong>Dirección:</strong> Álvarez 2336, 2571188 Viña del Mar, Valparaíso</li>
+            </ul>
+        </li>
+        <li class="list-group-item information-list-item">
+            <strong>Política de Privacidad</strong><br>
+            En Ferremas nos comprometemos a proteger la privacidad de nuestros clientes. Los datos personales que recolectamos son utilizados exclusivamente para procesar compras, enviar notificaciones importantes sobre nuestros productos y ofrecer un mejor servicio. No compartimos información personal con terceros sin el consentimiento expreso de nuestros usuarios.
+        </li>
+        <li class="list-group-item information-list-item">
+            <strong>Términos y Condiciones</strong><br>
+            Al realizar una compra en nuestra tienda, usted acepta nuestros <a href="{% url 'terms_and_conditions' %}">términos y condiciones.</a> Esto incluye políticas de devolución, envíos y uso de la tienda en línea. Para más información, consulte nuestra página de <a href="{% url 'terms_and_conditions' %}">términos y condiciones.</a>
+        </li>
     </ul>
 </div>
 {% endblock %}
