@@ -1,18 +1,136 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block title %}Catálogo de Productos | FERREMAS{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/catalogo.css' %}" />
+{% endblock %}
+
 {% block content %}
-<h1>Productos</h1>
-<div class="row">
-    {% for producto in productos %}
-    <div class="col-md-4">
-        <div class="card">
-            <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
-            <div class="card-body">
-                <h5 class="card-title">{{ producto.nombre }}</h5>
-                <p class="card-text">${{ producto.precio }}</p>
-                <a href="{% url 'detalle_producto' producto.id %}" class="btn btn-primary">Ver más</a>
-            </div>
-        </div>
+
+
+<div class="container mt-4" data-aos="fade-in" data-aos-duration="800">
+  <div class="card bg-light">
+    <div class="card-body bg-light">
+      <h2>Catálogo</h2>
+      <p>
+        Explora nuestra amplia gama de productos de ferretería y construcción, Calidad garantizada.
+      </p>
     </div>
-    {% endfor %}
+    </div>
+  </div>
 </div>
+
+
+<div class="container mt-4 filter-section" data-aos="fade-in" data-aos-duration="800">
+  <form method="get" class="row g-3">
+    <div class="col-md-4">
+      <label for="categoria" class="form-label">Categoría</label>
+      <select class="form-select" id="categoria" name="categoria">
+        <option value="">Todas las categorías</option>
+        {% for value, label in categorias %}
+        <option value="{{ value }}" {% if request.GET.categoria == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label for="marca" class="form-label">Marca</label>
+      <select class="form-select" id="marca" name="marca">
+        <option value="">Todas las marcas</option>
+        {% for marca in marcas %}
+        <option value="{{ marca }}" {% if request.GET.marca == marca %}selected{% endif %}>{{ marca }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label for="orden" class="form-label">Ordenar por</label>
+      <select class="form-select" id="orden" name="orden">
+        <option value="">Recomendados</option>
+        <option value="precio_asc" {% if request.GET.orden == 'precio_asc' %}selected{% endif %}>Precio: Menor a mayor</option>
+        <option value="precio_desc" {% if request.GET.orden == 'precio_desc' %}selected{% endif %}>Precio: Mayor a menor</option>
+        <option value="nombre_asc" {% if request.GET.orden == 'nombre_asc' %}selected{% endif %}>Nombre: A-Z</option>
+        <option value="nombre_desc" {% if request.GET.orden == 'nombre_desc' %}selected{% endif %}>Nombre: Z-A</option>
+      </select>
+    </div>
+    <div class="col-12">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Buscar productos..." name="q" value="{{ request.GET.q }}">
+        <button class="btn btn-primary" type="submit">Buscar</button>
+        <a href="{% url 'store:lista_productos' %}" class="btn btn-outline-secondary">Limpiar</a>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="container mt-3 product-container">
+    {% if productos %}
+    <div class="row g-3">
+      {% for producto in productos %}
+      <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6" data-aos="fade-in" data-aos-duration="600">
+        <div class="card h-100 product-card">
+          
+          <span class="badge-categoria bg-info text-dark">
+            {{ producto.get_categoria_display|truncatechars:15 }}
+          </span>
+          
+          
+          <div class="product-img-container">
+            {% if producto.imagen_principal %}
+              <img src="{{ producto.imagen_principal.url }}" class="img-fluid" alt="{{ producto.nombre }}">
+            {% else %}
+              <i class="bi bi-image text-muted" style="font-size: 2rem;"></i>
+            {% endif %}
+            <span class="badge-categoria">{{ producto.get_categoria_display }}</span>
+          </div>
+          
+          
+          <div class="compact-card-body d-flex flex-column">
+            <div>
+              <span class="compact-card-text text-muted">{{ producto.marca|truncatechars:15 }}</span>
+              <h6 class="compact-card-title">{{ producto.nombre|truncatechars:25 }}</h6>
+            </div>
+            
+            <div class="mt-auto">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <span class="compact-price fw-bold text-success">${{ producto.valor|floatformat:"0" }}</span>
+                <span class="compact-badge badge {% if producto.disponible %}bg-success{% else %}bg-danger{% endif %}">
+                  {% if producto.disponible %}<i class="bi bi-check-circle-fill"></i>{% else %}<i class="bi bi-x-circle-fill"></i>{% endif %}
+                </span>
+              </div>
+              
+              <a href="{% url 'store:detalle_producto' producto.id %}" class="btn btn-sm compact-btn btn-outline-primary w-100">
+                <i class="bi bi-eye-fill me-1"></i>Detalles
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-products text-center py-4">
+      <div class="card shadow-sm border-0 p-3">
+        <i class="bi bi-search text-muted" style="font-size: 2rem;"></i>
+        <h4 class="mt-2">No se encontraron productos</h4>
+        <p class="text-muted small">Intenta con otros criterios de búsqueda</p>
+        <a href="{% url 'store:lista_productos' %}" class="btn btn-sm btn-primary mt-2">
+          <i class="bi bi-arrow-counterclockwise me-1"></i>Ver todos
+        </a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+    });
+});
+</script>
 {% endblock %}

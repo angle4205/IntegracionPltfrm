@@ -1,0 +1,122 @@
+.product-gallery {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.main-image-container {
+  aspect-ratio: 1/1;
+  background: #f8f9fa;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.thumbnail-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 20px 0;
+  margin-top: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bs-primary) #f8f9fa;
+}
+.thumbnail-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.thumbnail-container::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+
+.thumbnail-container::-webkit-scrollbar-thumb {
+  background-color: var(--bs-primary);
+  border-radius: 3px;
+}
+
+.thumbnail {
+  flex: 0 0 auto; /* Evita que las miniaturas se estiren o encojan */
+  width: 70px; /* Tamaño ligeramente reducido */
+  height: 70px;
+  min-width: 70px; /* Ancho mínimo garantizado */
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.thumbnail:hover {
+  transform: scale(1.05);
+}
+
+.thumbnail.active {
+  border-color: var(--bs-primary);
+  transform: scale(1.05);
+}
+
+.product-specs {
+  padding-top: 20px;
+}
+
+.product-specs h1 {
+  margin-bottom: 25px;
+}
+
+.product-specs .spec-item {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.product-price {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--bs-success);
+  margin: 20px 0;
+}
+
+.availability-badge {
+  font-size: 0.9rem;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn-lg {
+  padding: 12px 24px;
+  font-size: 1.1rem;
+}
+
+@media (min-width: 768px) {
+  .product-detail-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .product-specs {
+    padding-top: 0;
+    top: 20px;
+  }
+
+  .action-buttons {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .product-detail-container {
+    gap: 50px;
+  }
+
+  .thumbnail-container {
+    justify-content: flex-start;
+  }
+}

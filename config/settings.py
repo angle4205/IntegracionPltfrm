@@ -58,7 +58,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR / "apps/core/templates/core",
-                 BASE_DIR / "apps/landing/templates/landing"],
+            BASE_DIR / "apps/landing/templates/landing", 
+            BASE_DIR / "apps/store/templates/store"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

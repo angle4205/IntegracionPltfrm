@@ -1,8 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>{{ producto.nombre }}</h1>
-<img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" style="max-width: 300px;">
-<p>{{ producto.descripcion }}</p>
-<p>Precio: ${{ producto.precio }}</p>
-<p>Stock: {{ producto.stock }}</p>
-{% endblock %}

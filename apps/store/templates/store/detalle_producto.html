@@ -1,0 +1,157 @@
+{% extends 'base.html' %} {% load static %} {% block title %}{{ producto.nombre
+}} | FERREMAS{% endblock %} {% block extra_css %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css"
+/>
+<link rel="stylesheet" href="{% static 'css/producto.css' %}" />
+{% endblock %} {% block content %}
+<div class="container py-5">
+  <div class="product-detail-container" data-aos="fade-up">
+    <div class="product-gallery">
+      <div class="main-image-container">
+        {% if producto.imagen_principal %}
+        <img
+          id="main-image"
+          src="{{ producto.imagen_principal.url }}"
+          class="img-fluid w-100 h-100 object-fit-cover"
+          alt="{{ producto.nombre }}"
+          data-fancybox="gallery"
+        />
+        {% else %}
+        <div
+          class="w-100 h-100 d-flex align-items-center justify-content-center bg-light"
+        >
+          <i class="bi bi-image text-muted" style="font-size: 3rem"></i>
+        </div>
+        {% endif %}
+      </div>
+
+      {% if producto.imagenes_secundarias.all %}
+      <div class="gallery-wrapper">
+        <div class="thumbnail-container">
+          <div
+            class="thumbnail active"
+            onclick="changeImage('{{ producto.imagen_principal.url }}')"
+          >
+            <img
+              src="{{ producto.imagen_principal.url }}"
+              class="w-100 h-100 object-fit-cover"
+              alt="Miniatura"
+            />
+          </div>
+          {% for imagen in producto.imagenes_secundarias.all %}
+          <div
+            class="thumbnail"
+            onclick="changeImage('{{ imagen.imagen.url }}')"
+          >
+            <img
+              src="{{ imagen.imagen.url }}"
+              class="w-100 h-100 object-fit-cover"
+              alt="Miniatura"
+            />
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="product-specs">
+      <h2 class="mb-6">{{ producto.nombre }}</h2>
+
+      <div class="d-flex align-items-center mb-4">
+        <span class="product-price">${{ producto.valor|floatformat:"0" }}</span>
+        <span
+          class="availability-badge badge ms-3 {% if producto.disponible %}bg-success{% else %}bg-danger{% endif %}"
+        >
+          {% if producto.disponible %}
+          <i class="bi bi-check-circle-fill me-1"></i>Disponible {% else %}
+          <i class="bi bi-x-circle-fill me-1"></i>Agotado {% endif %}
+        </span>
+      </div>
+
+      <div class="spec-item">
+        <h5 class="text-muted">Marca</h5>
+        <p class="fs-5">{{ producto.marca }}</p>
+      </div>
+
+      <div class="spec-item">
+        <h5 class="text-muted">Categoría</h5>
+        <p class="fs-5">{{ producto.get_categoria_display }}</p>
+      </div>
+
+      <div class="spec-item">
+        <h5 class="text-muted">Stock disponible</h5>
+        <p class="fs-5">{{ producto.stock }} unidades</p>
+      </div>
+
+      <span>Referencia: {{ producto.nro_referencia }}</span>
+
+      <div class="d-grid gap-2 d-md-flex mt-4">
+        <button class="btn btn-primary btn-lg me-md-2">
+          <i class="bi bi-cart-plus me-2"></i>Añadir al carrito
+        </button>
+        <button class="btn btn-outline-secondary btn-lg">
+          <i class="bi bi-heart me-2"></i>Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5" data-aos="fade-up">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Descripción del producto</h3>
+          <div class="card-text">
+            {% if producto.descripcion %} {{ producto.descripcion|linebreaks }}
+            {% else %}
+            <p class="text-muted">
+              No hay descripción disponible para este producto.
+            </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <h2 class="mb-4">Productos relacionados</h2>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+<script>
+  function changeImage(url) {
+    document.getElementById("main-image").src = url;
+
+    document.querySelectorAll(".thumbnail").forEach((thumb) => {
+      thumb.classList.remove("active");
+    });
+    event.currentTarget.classList.add("active");
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    AOS.init({
+      duration: 800,
+      easing: "ease-in-out",
+      once: true,
+    });
+    $('[data-fancybox="gallery"]').fancybox({
+      buttons: [
+        "zoom",
+        "share",
+        "slideShow",
+        "fullScreen",
+        "download",
+        "thumbs",
+        "close",
+      ],
+    });
+  });
+</script>
+{% endblock %}

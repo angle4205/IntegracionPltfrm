@@ -33,6 +33,10 @@ h2 {
   font-family: "FuturaSubtitle", serif;
 }
 
+h3 {
+  font-family: "FuturaSubtitle", serif;
+}
+
 h5 {
   font-family: "FuturaSubtitle", serif;
 }
@@ -47,6 +51,10 @@ a {
 
 li {
   font-family: "FuturaP", serif;
+}
+
+span {
+  font-family: "FuturaP", sans-serif;
 }
 
 /* Main: */
@@ -64,7 +72,7 @@ main.main-content {
 
 /* Navbar: */
 .navbar {
-  background-color: rgb(216, 64, 64);
+  background-color: rgb(40, 162, 81);
 }
 
 .navbar-brand,
@@ -74,7 +82,7 @@ main.main-content {
 
 /* Footer: */
 .footer {
-  background-color: rgb(216, 64, 64);
+  background-color: rgb(40, 162, 81);
   color: rgb(238, 238, 238);
   padding: 15px 0;
   width: 100%;

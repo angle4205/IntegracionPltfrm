@@ -21,12 +21,12 @@
 
 .information-list a {
   text-decoration: none;
-  color: rgb(216, 64, 64);
+  color: #50C878;
 }
 
 .information-list a:hover {
   text-decoration: underline;
-  color: rgb(100, 0, 0);
+  color: #28A251;
 }
 
 
