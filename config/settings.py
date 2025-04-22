@@ -123,7 +123,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "apps/core/static",
-    BASE_DIR / "apps/landing/static"
+    BASE_DIR / "apps/landing/static",
+    BASE_DIR / "apps/store/static"
 ]
 
 # Default primary key field type
