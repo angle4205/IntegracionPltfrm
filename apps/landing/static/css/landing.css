@@ -49,6 +49,10 @@
   padding: 5px;
   background-color: white;
 }
+#map {
+  height: 500px;
+  border-radius: 20px;
+}
 
 @media (max-width: 767px) {
   .text-container {
