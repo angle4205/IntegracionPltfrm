@@ -15,7 +15,8 @@
 }
 
 /* Estilos generales para el cuerpo */
-body, html {
+body,
+html {
   background-color: rgb(255, 255, 255);
   color: rgb(3, 3, 3);
 }
@@ -58,7 +59,8 @@ span {
 }
 
 /* Main: */
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -73,11 +75,41 @@ main.main-content {
 /* Navbar: */
 .navbar {
   background-color: rgb(40, 162, 81);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+  z-index: 1030; /* Ensure it stays above other elements */
 }
 
-.navbar-brand,
-.nav-link {
+.navbar-brand {
+  font-family: "FuturaTitle", serif;
+  font-size: 1.5rem;
   color: rgb(238, 238, 238) !important;
+}
+
+.nav-btn {
+  margin-left: 10px;
+  font-family: "FuturaP", sans-serif;
+  font-size: 1rem;
+}
+
+.nav-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 991.98px) {
+  /* Bootstrap breakpoint for lg screens */
+  .navbar-collapse .navbar-nav .nav-item {
+    margin-bottom: 10px; /* Add spacing between items */
+  }
+
+  .navbar-collapse .navbar-nav .nav-item:last-child {
+    margin-bottom: 0; /* Remove margin for the last item */
+  }
+}
+
+body {
+  padding-top: 62px; /* Navbar size */
 }
 
 /* Footer: */

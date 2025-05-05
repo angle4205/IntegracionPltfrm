@@ -1,3 +1,6 @@
+# .gitignore
+config/firebase-adminsdk.json
+
 # Python virtual environment
 .venv/
 venv/

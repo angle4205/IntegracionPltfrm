@@ -10,3 +10,6 @@ def about(request):
 
 def terms_and_conditions(request):
     return render(request, 'terms_and_conditions.html')
+
+def politics(request):
+    return render(request, 'politics.html')

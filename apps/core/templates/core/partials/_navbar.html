@@ -1,39 +1,82 @@
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg fixed-top">
   <div class="container">
-    <a class="navbar-brand" id="brand" href="{% url 'home' %}">FERREMAS</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand" id="brand" href="{% url 'home' %}">
+       FERREMAS
+    </a>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="d-flex align-items-center ms-auto">
+      {% if user.is_authenticated %}
+      <!-- Show "Bienvenido, (Usuario)" when logged in -->
+      <div class="dropdown">
+        <button
+          class="btn btn-outline-light nav-btn dropdown-toggle me-2 order-lg-2"
+          type="button"
+          id="userDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="bi bi-person-circle me-2"></i> Bienvenido, {{
+          user.displayName }}
+        </button>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="userDropdown"
+        >
+          <li>
+            <a class="dropdown-item" href="{% url 'profile' %}">
+              <i class="bi bi-person"></i> Mi Perfil
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="{% url 'logout' %}">
+              <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+            </a>
+          </li>
+        </ul>
+      </div>
+      {% else %}
+      <!-- Show "Iniciar Sesión" when not logged in -->
+      <button
+        class="btn btn-outline-light nav-btn me-2 order-lg-2"
+        data-bs-toggle="modal"
+        data-bs-target="#loginModal"
+      >
+        <i class="bi bi-person-circle me-2"></i> Iniciar Sesión
+      </button>
+      {% endif %}
+
+      <button
+        class="navbar-toggler order-lg-3"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    <div class="collapse navbar-collapse order-lg-1" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a
-            href="#"
-            class="nav-link position-relative"
+          <button
+            class="btn btn-outline-light nav-btn"
             data-bs-toggle="modal"
             data-bs-target="#carritoModal"
           >
-            <i class="bi bi-cart3"></i>
-            <span
-              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-              id="carritoBadge"
-              style="display: none"
-            >
-              0
-            </span>
-          </a>
+            <i class="bi bi-cart3 me-2"></i> Carrito
+          </button>
         </li>
         <li class="nav-item">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'store:lista_productos' %}"
-            >Catálogo</a
+          <a
+            href="{% url 'store:lista_productos' %}"
+            class="btn btn-outline-light nav-btn"
           >
+            <i class="bi bi-box-seam me-2"></i> Catálogo
+          </a>
+        </li>
+        <li>
+          <p>User is authenticated: {{ user.is_authenticated }}</p>
+          <p>Username: {{ user.username }}</p>
         </li>
       </ul>
     </div>
