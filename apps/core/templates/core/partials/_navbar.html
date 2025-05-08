@@ -1,8 +1,6 @@
 <nav class="navbar navbar-expand-lg fixed-top">
   <div class="container">
-    <a class="navbar-brand" id="brand" href="{% url 'home' %}">
-       FERREMAS
-    </a>
+    <a class="navbar-brand" id="brand" href="{% url 'home' %}"> FERREMAS </a>
 
     <div class="d-flex align-items-center ms-auto">
       {% if user.is_authenticated %}
@@ -15,8 +13,8 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <i class="bi bi-person-circle me-2"></i> Bienvenido, {{
-          user.displayName }}
+          <i class="bi bi-person-circle me-2"></i> Bienvenido, {{ user.username
+          }}
         </button>
         <ul
           class="dropdown-menu dropdown-menu-end"
@@ -28,9 +26,10 @@
             </a>
           </li>
           <li>
-            <a class="dropdown-item" href="{% url 'logout' %}">
+            <!-- Updated logout button -->
+            <button class="dropdown-item" onclick="logoutUser()">
               <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
-            </a>
+            </button>
           </li>
         </ul>
       </div>
@@ -73,10 +72,6 @@
           >
             <i class="bi bi-box-seam me-2"></i> Catálogo
           </a>
-        </li>
-        <li>
-          <p>User is authenticated: {{ user.is_authenticated }}</p>
-          <p>Username: {{ user.username }}</p>
         </li>
       </ul>
     </div>

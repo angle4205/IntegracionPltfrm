@@ -1,3 +1,41 @@
+// Add a logout function to clear Firebase session persistence
+function logoutUser() {
+  firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      console.log("User signed out from Firebase.");
+      // Clear session persistence
+      firebase
+        .auth()
+        .setPersistence(firebase.auth.Auth.Persistence.NONE)
+        .then(() => {
+          console.log("Session persistence cleared.");
+          // Log out from Django
+          fetch("/auth/logout/", {
+            method: "POST",
+            headers: {
+              "X-CSRFToken": getCookie("csrftoken"), // Include the CSRF token
+            },
+          })
+            .then((response) => {
+              if (response.ok) {
+                console.log("User logged out from Django.");
+                // Redirect to the home page or update the UI
+                window.location.href = "/";
+              } else {
+                console.error("Failed to log out from Django.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error logging out from Django:", error);
+            });
+        });
+    })
+    .catch((error) => {
+      console.error("Error during Firebase logout:", error);
+    });
+}
 window.addEventListener("load", function () {
   // Firebase configuration
   const firebaseConfig = {
@@ -35,14 +73,10 @@ window.addEventListener("load", function () {
   const uiConfig = {
     signInSuccessUrl: "/", // Redirect URL after successful login
     signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      {
-        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        requireDisplayName: true, // Ask for first and last name during account creation
-      },
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID, // Only Google Sign-In
     ],
     tosUrl: "/terminos-y-condiciones/", // Terms of service URL
-    privacyPolicyUrl: "https://example.com/privacy-policy", // Privacy policy URL
+    privacyPolicyUrl: "/politica-de-privacidad/", // Privacy policy URL
     credentialHelper: firebaseui.auth.CredentialHelper.NONE, // Disable Smart Lock
     callbacks: {
       signInSuccessWithAuthResult: function (authResult) {
@@ -51,13 +85,6 @@ window.addEventListener("load", function () {
       },
       uiShown: function () {
         console.log("FirebaseUI is displayed.");
-      },
-      signInFailure: function (error) {
-        console.error("Sign-in error:", error);
-        if (error.code === "auth/email-already-in-use") {
-          alert("This email is already registered. Please log in instead.");
-        }
-        return Promise.resolve();
       },
     },
   };
@@ -132,14 +159,9 @@ window.addEventListener("load", function () {
                 </a>
               </li>
               <li>
-                <form method="POST" action="/auth/logout/" style="display: inline;">
-                  <input type="hidden" name="csrfmiddlewaretoken" value="${getCookie(
-                    "csrftoken"
-                  )}">
-                  <button type="submit" class="dropdown-item">
-                    <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
-                  </button>
-                </form>
+                <button class="dropdown-item" onclick="logoutUser()">
+                  <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+                </button>
               </li>
             </ul>
           </div>

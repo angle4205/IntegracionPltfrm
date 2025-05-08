@@ -50,9 +50,15 @@ def firebase_login(request):
     return JsonResponse({"error": "Invalid request method."}, status=405)
 
 
+from django.contrib.auth import logout
+from django.http import JsonResponse
+
+
 def custom_logout(request):
-    logout(request)
-    return HttpResponseRedirect("/")
+    if request.method == "POST":
+        logout(request) 
+        return JsonResponse({"message": "User logged out successfully."})
+    return JsonResponse({"error": "Invalid request method."}, status=405)
 
 
 @login_required
