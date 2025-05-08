@@ -1,8 +1,18 @@
 .section {
-  padding: 40px;
-  margin: 0;
+  margin-bottom: 20px; /* Espaciado entre secciones */
 }
 
+.section h2 {
+  font-size: 1.5rem; /* Tamaño del título */
+  margin-bottom: 1rem; /* Espaciado inferior */
+}
+
+.section p {
+  font-size: 1rem; /* Tamaño del texto */
+  line-height: 1.5; /* Mejora la legibilidad */
+  margin: 0 auto; /* Centra el texto */
+  max-width: 90%; /* Limita el ancho del texto */
+}
 .carousel-item img {
   width: 100vw;
   height: 27vw;
@@ -64,6 +74,9 @@
 #map {
   height: 500px;
   border-radius: 20px;
+  margin: 0 auto; /* Center the map horizontally */
+  padding: 0 30px; /* Add padding to the left and right */
+  max-width: 90%; /* Limit the width of the map */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
 }
 
