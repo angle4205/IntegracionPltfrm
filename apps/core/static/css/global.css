@@ -1,64 +1,57 @@
-/* Fuentes globales */
-@font-face {
-  font-family: "FuturaTitle";
-  src: url("../fonts/Futura\ Std\ Extra\ Bold.ttf");
+/* Font stack for San Francisco */
+body,
+html,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+li,
+span,
+button,
+input,
+textarea {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
 }
 
-@font-face {
-  font-family: "FuturaSubtitle";
-  src: url("../fonts/Futura\ Std\ Heavy.ttf");
+/* Make titles bold */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+#brand {
+  font-weight: bold;
 }
 
-@font-face {
-  font-family: "FuturaP";
-  src: url("../fonts/Futura\ Std\ Book.ttf");
+/* Reset Bootstrap component fonts */
+.navbar,
+.navbar-brand,
+.navbar-nav .nav-link,
+.btn,
+.card,
+.modal,
+.dropdown-menu,
+.list-group-item,
+.toast,
+.carousel-caption {
+  font-family: inherit; /* Inherit the global font-family */
+  font-size: 1rem; /* Optional: Adjust font size for consistency */
 }
 
-/* Estilos generales para el cuerpo */
+/* General body styles */
 body,
 html {
-  background-color: rgb(255, 255, 255);
-  color: rgb(3, 3, 3);
+  background-color: #ffffff; /* White background */
+  color: #000000; /* Black text for readability */
 }
 
-#brand {
-  font-family: "FuturaTitle", serif;
-}
-
-h1 {
-  font-family: "FuturaTitle", serif;
-  text-transform: uppercase;
-}
-
-h2 {
-  font-family: "FuturaSubtitle", serif;
-}
-
-h3 {
-  font-family: "FuturaSubtitle", serif;
-}
-
-h5 {
-  font-family: "FuturaSubtitle", serif;
-}
-
-p {
-  font-family: "FuturaP", sans-serif;
-}
-
-a {
-  font-family: "FuturaP", sans-serif;
-}
-
-li {
-  font-family: "FuturaP", serif;
-}
-
-span {
-  font-family: "FuturaP", sans-serif;
-}
-
-/* Main: */
+/* Main layout */
 html,
 body {
   height: 100%;
@@ -72,33 +65,161 @@ main.main-content {
   flex-grow: 1;
 }
 
-/* Navbar: */
+/* Navbar styles */
 .navbar {
-  background-color: rgb(40, 162, 81);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
-  z-index: 1030; /* Ensure it stays above other elements */
+  background-color: #e63946; /* Softer red UI */
+  padding: 0.8rem 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
 }
 
 .navbar-brand {
-  font-family: "FuturaTitle", serif;
   font-size: 1.5rem;
-  color: rgb(238, 238, 238) !important;
+  color: #ffd700 !important; /* Yellow brand title */
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff; /* White text */
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffd700; /* Yellow hover effect */
+  transition: color 0.3s ease;
 }
 
 .nav-btn {
-  margin-left: 10px;
-  font-family: "FuturaP", sans-serif;
   font-size: 1rem;
+  margin-left: 10px;
 }
 
 .nav-btn:hover {
   background-color: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  color: #ffffff;
   transition: background-color 0.3s ease;
 }
 
+/* Button styles */
+.btn-primary {
+  border: none; /* Remove border */
+  color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+  border-radius: 8px; /* Rounded corners */
+}
+
+.btn-outline-primary {
+  background-color: transparent;
+  border-radius: 8px;
+}
+
+/* Card styles */
+.card {
+  background-color: #ffffff; /* White for a clean look */
+  border: none; /* Remove border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.card-header {
+  background-color: #e63946; /* Softer red UI */
+  color: #ffffff; /* White text */
+  font-weight: bold;
+  border-radius: 10px 10px 0 0; /* Rounded top corners */
+}
+
+.card-body {
+  padding: 1.5rem;
+  color: #000000; /* Black text */
+  border-radius: 30px;
+}
+
+.card-footer {
+  background-color: #f5f5f5; /* Light Gray */
+  border-top: none; /* Remove border */
+  border-radius: 0 0 10px 10px; /* Rounded bottom corners */
+  color: #000000; /* Black text */
+}
+
+/* Modal styles */
+.modal-content {
+  background-color: #ffffff; /* White for a clean look */
+  border: none; /* Remove border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+  border-radius: 10px; /* Rounded corners */
+  color: #000000; /* Black text */
+}
+
+/* Footer styles */
+.footer {
+  margin-top: 25px;
+  background-color: #e63946; /* Softer red UI */
+  color: #ffffff; /* White text */
+  padding: 20px 0;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1); /* Add shadow at the top */
+}
+
+.footer a {
+  color: #ffd700; /* Yellow links */
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #ffffff; /* White on hover */
+}
+
+/* Carousel styles */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(100%); /* White icons for better visibility */
+}
+
+/* Separator styles */
+hr {
+  border: none; /* Remove border */
+  height: 1px;
+  background-color: #e63946; /* Softer red UI */
+  margin: 1.5rem 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+
+/* Form styles */
+input,
+textarea {
+  border: 2px solid #e63946; /* Softer red border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+
+input:focus,
+textarea:focus {
+  border-color: #d32f2f; /* Slightly darker red on focus */
+  outline: none;
+  box-shadow: 0 0 5px rgba(211, 47, 47, 0.5); /* Add focus shadow */
+}
+
+/* Table styles */
+.table {
+  background-color: #ffffff;
+  border: none; /* Remove border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.table th {
+  background-color: #e63946; /* Softer red UI */
+  color: #ffffff; /* White text */
+  border: none; /* Remove border */
+}
+
+.table td {
+  border: none; /* Remove border */
+  color: #000000; /* Black text */
+}
+
+/* Responsive adjustments */
 @media (max-width: 991.98px) {
-  /* Bootstrap breakpoint for lg screens */
   .navbar-collapse .navbar-nav .nav-item {
     margin-bottom: 10px; /* Add spacing between items */
   }
@@ -110,12 +231,4 @@ main.main-content {
 
 body {
   padding-top: 62px; /* Navbar size */
-}
-
-/* Footer: */
-.footer {
-  background-color: rgb(40, 162, 81);
-  color: rgb(238, 238, 238);
-  padding: 15px 0;
-  width: 100%;
 }

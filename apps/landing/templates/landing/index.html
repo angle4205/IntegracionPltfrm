@@ -1,5 +1,5 @@
-{% extends 'base.html' %} {% load static %} {% block title %} Main page 
-{% endblock %} {% block extra_css %}
+{% extends 'base.html' %} {% load static %} 
+{% block title %} Main page {% endblock %} {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/landing.css' %}" />
 <link
   rel="stylesheet"
@@ -58,9 +58,10 @@
 </div>
 <br />
 
-
 <div class="container mt-4">
+  <!-- Row for Features -->
   <div class="row text-center">
+    <!-- Feature 1 -->
     <div class="col-md-4 section" data-aos="fade" data-aos-duration="2000">
       <h2>Amplia variedad de productos</h2>
       <p>
@@ -70,6 +71,8 @@
         sector.
       </p>
     </div>
+
+    <!-- Feature 2 -->
     <div class="col-md-4 section" data-aos="fade" data-aos-duration="2000">
       <h2>Presencia en todo Chile</h2>
       <p>
@@ -78,6 +81,8 @@
         Próximamente ampliaremos nuestra cobertura con nuevas aperturas.
       </p>
     </div>
+
+    <!-- Feature 3 -->
     <div class="col-md-4 section" data-aos="fade" data-aos-duration="2000">
       <h2>Compra en línea</h2>
       <p>
@@ -85,39 +90,6 @@
         nuestro catálogo, compara precios y recibe tu pedido en la comodidad de
         tu hogar o empresa.
       </p>
-    </div>
-  </div>
-</div>
-
-<div class="container mt-4" data-aos="slide-right" data-aos-duration="2000">
-  <div class="card bg-light">
-    <div class="card-body bg-light">
-      <h2>Estamos ubicados frente a Estacion Chorrillos</h2>
-      <div id="map"></div>
-    </div>
-    <div class="card-footer bg-light">
-      <marquee>
-        <img
-          src="{% static 'img/makitaBrand.png' %}"
-          alt="Amiri"
-          class="brand-img"
-        />
-        <img
-          src="{% static 'img/stanleyBrand.png' %}"
-          alt="Flight"
-          class="brand-img"
-        />
-        <img
-          src="{% static 'img/boschBrand.png' %}"
-          alt="Nike"
-          class="brand-img"
-        />
-        <img
-          src="{% static 'img/sikaBrand.png' %}"
-          alt="Top"
-          class="brand-img"
-        />
-      </marquee>
     </div>
   </div>
 </div>
@@ -131,7 +103,7 @@
     style="padding-top: 0px; padding-bottom: 100px"
   >
     <div class="col-md-6 text-container">
-      <h2 class="text-white">Calidad y Garantía</h2>
+      <h2>Calidad y Garantía</h2>
       <p class="text-white">
         Trabajamos con marcas líderes en el sector para ofrecerte productos
         duraderos y eficientes. Además, garantizamos el respaldo y garantía de
@@ -147,6 +119,43 @@
     </div>
   </div>
 </div>
+
+<div class="container mt-4">
+  <div class="row align-items-center section">
+    <h2>Nuestras Sucursales</h2>
+    <div id="map"></div>
+  </div>
+</div>
+
+<div class="container mt-4">
+  <div class="card bg-light">
+    <div class="card-footer bg-light">
+      <marquee>
+        <img
+          src="{% static 'img/makitaBrand.png' %}"
+          alt="Makita"
+          class="brand-img"
+        />
+        <img
+          src="{% static 'img/stanleyBrand.png' %}"
+          alt="Stanley"
+          class="brand-img"
+        />
+        <img
+          src="{% static 'img/boschBrand.png' %}"
+          alt="Bosch"
+          class="brand-img"
+        />
+        <img
+          src="{% static 'img/sikaBrand.png' %}"
+          alt="Sika"
+          class="brand-img"
+        />
+      </marquee>
+    </div>
+  </div>
+</div>
+
 
 {% endblock %} {% block extra_js %}
 <script>

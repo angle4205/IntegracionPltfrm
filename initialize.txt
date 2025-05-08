@@ -1,11 +1,23 @@
+Pasos:
+
 1. python -m venv .venv 
 
 2. .venv\Scripts\activate
 
 3. pip install django  
 
-4. python manage.py runserver   
+4. pip install Pillow
 
+5. descargar el admin sdk de firebase y ponerlo en /config/
+
+6. python manage.py runserver   
+
+
+otros:
+
+python manage.py makemigrations  
 python manage.py migrate    
+
+Limpiar caché navegador:
 
 Ctrl + Shift + R

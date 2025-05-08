@@ -1,5 +1,6 @@
 .section {
-  padding: 100px 0;
+  padding: 40px;
+  margin: 0;
 }
 
 .carousel-item img {
@@ -24,21 +25,31 @@
 
 .text-container {
   position: relative;
-  padding: 100px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-right: 80px;
   z-index: 2;
+  color: #ffd700;
 }
 
 .text-container::before {
   content: "";
+  margin-right: 50px;
   position: absolute;
   top: 0;
   right: 0;
   width: 100vw;
   height: 100%;
-  background: rgb(40, 162, 81);
-  clip-path: polygon(0% 0%, 15% 100%, 100% 100%, 90% 0%);
+  background: #e63946;
+  border-radius: 30px;
+  border: #ffd700 3px solid;
   z-index: -1;
-  color: rgb(238, 238, 238);
+  box-shadow:  0 4px 6px rgba(0, 0, 0, 0.2); /* Add shadow */
+}
+
+.img-fluid {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
 }
 
 .brand-img {
@@ -49,9 +60,11 @@
   padding: 5px;
   background-color: white;
 }
+
 #map {
   height: 500px;
   border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
 }
 
 @media (max-width: 767px) {

@@ -54,8 +54,8 @@
     <div class="col-12">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Buscar productos..." name="q" value="{{ request.GET.q }}">
-        <button class="btn btn-primary" type="submit">Buscar</button>
-        <a href="{% url 'store:lista_productos' %}" class="btn btn-outline-secondary">Limpiar</a>
+        <button class="btn btn-danger btn-outline-white" type="submit">Buscar</button>
+        <a href="{% url 'store:lista_productos' %}" class="btn btn-success btn-outline-white">Limpiar</a>
       </div>
     </div>
   </form>
@@ -87,7 +87,7 @@
           <div class="compact-card-body d-flex flex-column">
             <div>
               <span class="compact-card-text text-muted">{{ producto.marca|truncatechars:15 }}</span>
-              <h6 class="compact-card-title">{{ producto.nombre|truncatechars:25 }}</h6>
+              <h6 class="compact-card-title ">{{ producto.nombre|truncatechars:25 }}</h6>
             </div>
             
             <div class="mt-auto">
@@ -98,7 +98,7 @@
                 </span>
               </div>
               
-              <a href="{% url 'store:detalle_producto' producto.id %}" class="btn btn-sm compact-btn btn-outline-primary w-100">
+              <a href="{% url 'store:detalle_producto' producto.id %}" class="btn btn-sm compact-btn btn-outline-success w-100">
                 <i class="bi bi-eye-fill me-1"></i>Detalles
               </a>
             </div>
@@ -113,7 +113,7 @@
         <i class="bi bi-search text-muted" style="font-size: 2rem;"></i>
         <h4 class="mt-2">No se encontraron productos</h4>
         <p class="text-muted small">Intenta con otros criterios de búsqueda</p>
-        <a href="{% url 'store:lista_productos' %}" class="btn btn-sm btn-primary mt-2">
+        <a href="{% url 'store:lista_productos' %}" class="btn btn-sm btn-danger mt-2">
           <i class="bi bi-arrow-counterclockwise me-1"></i>Ver todos
         </a>
       </div>
@@ -124,7 +124,6 @@
 {% endblock %}
 
 {% block extra_js %}
-<link rel="stylesheet" href="{% static 'store/css/store.css' %}">
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     AOS.init({

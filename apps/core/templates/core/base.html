@@ -46,7 +46,7 @@
     >
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-          <div class="modal-header bg-primary text-white">
+          <div class="modal-header bg-danger text-white">
             <h5 class="modal-title" id="carritoModalLabel">
               <i class="bi bi-cart-fill me-2"></i>Tu Carrito de Compras
             </h5>
@@ -64,7 +64,7 @@
                 <p class="mt-3">Tu carrito está vacío</p>
                 <a
                   href="{% url 'store:lista_productos' %}"
-                  class="btn btn-primary mt-2"
+                  class="btn btn-danger mt-2"
                 >
                   <i class="bi bi-arrow-right me-1"></i>Seguir comprando
                 </a>
@@ -96,11 +96,11 @@
                 class="d-flex justify-content-between align-items-center mb-3"
               >
                 <h4 class="mb-0">Total:</h4>
-                <h4 class="mb-0 text-primary" id="carritoTotal">$0</h4>
+                <h4 class="mb-0 text-success" id="carritoTotal">$0</h4>
               </div>
               <div class="d-grid gap-2">
                 <button
-                  class="btn btn-primary btn-lg"
+                  class="btn btn-danger btn-lg"
                   id="btnProcederPago"
                   disabled
                 >
