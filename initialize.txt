@@ -18,6 +18,8 @@ otros:
 python manage.py makemigrations  
 python manage.py migrate    
 
+npx webpack
+
 Limpiar caché navegador:
 
 Ctrl + Shift + R

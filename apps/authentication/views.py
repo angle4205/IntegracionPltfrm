@@ -12,19 +12,23 @@ def firebase_login(request):
     if request.method == "POST":
         print("firebase_login endpoint hit.")  # Debugging endpoint hit
         try:
+            # Parse the request body
             data = json.loads(request.body)
             token = data.get("token")
             if not token:
+                print("Error: Token not provided.")
                 return JsonResponse({"error": "Token not provided."}, status=400)
 
             # Verify the Firebase token
             decoded_token = firebase_auth.verify_id_token(token)
             print("Decoded token:", decoded_token)  # Debugging decoded token
 
+            # Extract user information from the token
             uid = decoded_token["uid"]
             email = decoded_token.get("email")
-            first_name = decoded_token.get("name", "").split(" ")[0]
-            last_name = " ".join(decoded_token.get("name", "").split(" ")[1:])
+            name = decoded_token.get("name", "")
+            first_name = name.split(" ")[0] if name else ""
+            last_name = " ".join(name.split(" ")[1:]) if name else ""
 
             # Get or create a Django user
             user, created = User.objects.get_or_create(
@@ -45,7 +49,9 @@ def firebase_login(request):
             print(
                 f"User {'created' if created else 'updated'}: {user}"
             )  # Debugging user creation
-            login(request, user)  # Log the user in
+
+            # Log the user in
+            login(request, user)
             print("User logged in successfully.")
             return JsonResponse({"message": "User authenticated successfully."})
 
@@ -53,6 +59,7 @@ def firebase_login(request):
             print("Error in firebase_login:", str(e))  # Debugging error
             return JsonResponse({"error": str(e)}, status=400)
 
+    print("Invalid request method.")
     return JsonResponse({"error": "Invalid request method."}, status=405)
 
 
