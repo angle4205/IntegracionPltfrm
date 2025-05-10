@@ -11,14 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import firebase_admin
-from firebase_admin import credentials
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-cred = credentials.Certificate("config/ferreteria-7c25b-firebase-adminsdk-fbsvc-5a7c096154.json")
-firebase_admin.initialize_app(cred)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -71,6 +66,9 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.static',
+                'django.template.context_processors.media',
+                'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -129,7 +127,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "apps/core/static",
     BASE_DIR / "apps/landing/static",
-    BASE_DIR / "apps/store/static"
+    BASE_DIR / "apps/store/static",
+    BASE_DIR / "apps/authentication/static",
 ]
 
 # Default primary key field type

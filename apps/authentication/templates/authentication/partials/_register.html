@@ -1,9 +1,9 @@
-<div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
-      <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title" id="loginModalLabel">
-          <i class="bi bi-person-circle me-2"></i>Iniciar Sesión
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="registerModalLabel">
+          <i class="bi bi-person-plus me-2"></i>Registrarse
         </h5>
         <button
           type="button"
@@ -14,11 +14,13 @@
       </div>
       <div class="modal-body">
         <div class="text-center mb-4">
-          <h4>Bienvenido a FERREMAS</h4>
-          <p class="text-muted">Inicia sesion o registrate para continuar.</p>
+          <h4>Únete a FERREMAS</h4>
+          <p class="text-muted">
+            Crea una cuenta para disfrutar de nuestros servicios.
+          </p>
         </div>
-        <!-- Acá va el formulario -->
-         <button type="submit" class="btn btn-success">Iniciar sesion</button>
+        <!-- Acá va el formulario de registro -->
+        <button type="submit" class="btn btn-success">Registrarse</button>
       </div>
 
       <div class="modal-footer">
@@ -29,9 +31,9 @@
           href="#"
           class="btn btn-primary"
           data-bs-dismiss="modal"
-          onclick="openRegisterModal()"
+          onclick="openLoginModal()"
         >
-          Registrarse
+          Volver a Iniciar Sesión
         </a>
       </div>
     </div>

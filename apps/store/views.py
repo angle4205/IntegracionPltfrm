@@ -1,12 +1,30 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Carrito, ItemCarrito, Producto
+from .models import Producto
+from apps.authentication.models import (
+    Cart,
+    ItemCarrito,
+) 
 from django.db.models import Q
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from decimal import Decimal
-from django.contrib.sessions.backends.db import SessionStore
 import json
+
+
+def get_or_create_cart(request):
+    """Obtiene o crea un carrito para el usuario autenticado o la sesión."""
+    if request.user.is_authenticated:
+        cart, created = Cart.objects.get_or_create(user=request.user, estado="ACTIVO")
+    else:
+        session_key = request.session.session_key
+        if not session_key:
+            request.session.create()
+        cart, created = Cart.objects.get_or_create(
+            session_key=request.session.session_key, estado="ACTIVO"
+        )
+    return cart
+
 
 def lista_productos(request):
     productos = Producto.objects.all()

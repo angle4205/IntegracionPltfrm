@@ -1,69 +1,84 @@
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.http import JsonResponse
-from firebase_admin import auth as firebase_auth
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import ensure_csrf_cookie
 import json
+from django.contrib.auth.models import User
 
-
-def firebase_login(request):
+def login_view(request):
     if request.method == "POST":
-        print("firebase_login endpoint hit.")  # Debugging endpoint hit
+        print("login_view endpoint hit.") 
         try:
-            # Parse the request body
+            
             data = json.loads(request.body)
-            token = data.get("token")
-            if not token:
-                print("Error: Token not provided.")
-                return JsonResponse({"error": "Token not provided."}, status=400)
+            username = data.get("username")
+            password = data.get("password")
 
-            # Verify the Firebase token
-            decoded_token = firebase_auth.verify_id_token(token)
-            print("Decoded token:", decoded_token)  # Debugging decoded token
+            if not username or not password:
+                print("Error: Username or password not provided.")
+                return JsonResponse(
+                    {"error": "Username and password are required."}, status=400
+                )
 
-            # Extract user information from the token
-            uid = decoded_token["uid"]
-            email = decoded_token.get("email")
-            name = decoded_token.get("name", "")
-            first_name = name.split(" ")[0] if name else ""
-            last_name = " ".join(name.split(" ")[1:]) if name else ""
-
-            # Get or create a Django user
-            user, created = User.objects.get_or_create(
-                username=uid,
-                defaults={
-                    "email": email,
-                    "first_name": first_name,
-                    "last_name": last_name,
-                },
-            )
-
-            # Update user details if they already exist
-            if not created:
-                user.first_name = first_name
-                user.last_name = last_name
-                user.save()
-
-            print(
-                f"User {'created' if created else 'updated'}: {user}"
-            )  # Debugging user creation
-
-            # Log the user in
-            login(request, user)
-            print("User logged in successfully.")
-            return JsonResponse({"message": "User authenticated successfully."})
+            
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                print(f"User {user.username} logged in successfully.")
+                return JsonResponse({"message": "User authenticated successfully."})
+            else:
+                print("Invalid credentials.")
+                return JsonResponse(
+                    {"error": "Invalid username or password."}, status=401
+                )
 
         except Exception as e:
-            print("Error in firebase_login:", str(e))  # Debugging error
+            print("Error in login_view:", str(e))
             return JsonResponse({"error": str(e)}, status=400)
 
     print("Invalid request method.")
     return JsonResponse({"error": "Invalid request method."}, status=405)
 
 
-def custom_logout(request):
+def register_view(request):
+    if request.method == "POST":
+        print("register_view endpoint hit.")  
+        try:
+            
+            data = json.loads(request.body)
+            username = data.get("username")
+            password = data.get("password")
+            email = data.get("email", "")
+
+            if not username or not password:
+                print("Error: Username or password not provided.")
+                return JsonResponse(
+                    {"error": "Username and password are required."}, status=400
+                )
+
+            
+            if User.objects.filter(username=username).exists():
+                print("Error: Username already exists.")
+                return JsonResponse({"error": "Username already exists."}, status=400)
+
+            # Crea nuevo usuario
+            user = User.objects.create_user(
+                username=username, password=password, email=email
+            )
+            print(f"User {user.username} created successfully.")
+            return JsonResponse({"message": "User registered successfully."})
+
+        except Exception as e:
+            print("Error in register_view:", str(e))  # Debugging error
+            return JsonResponse({"error": str(e)}, status=400)
+
+    print("Invalid request method.")
+    return JsonResponse({"error": "Invalid request method."}, status=405)
+
+
+def logout_view(request):
     if request.method == "POST":
         logout(request)
         print("User logged out successfully.")
