@@ -1,21 +1,24 @@
 function openRegisterModal() {
-  const loginModal = document.getElementById("loginModal");
+  const loginModal = bootstrap.Modal.getInstance(
+    document.getElementById("loginModal")
+  );
   const registerModal = new bootstrap.Modal(
     document.getElementById("registerModal")
   );
 
-  loginModal.addEventListener("hidden.bs.modal", function () {
-    registerModal.show();
-  });
+  loginModal.hide();
+  registerModal.show();
 }
 
 function openLoginModal() {
-  const registerModal = document.getElementById("registerModal");
+  const carritoModal = bootstrap.Modal.getInstance(
+    document.getElementById("carritoModal")
+  );
   const loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
 
-  registerModal.addEventListener("hidden.bs.modal", function () {
-    loginModal.show();
-  });
+  if (carritoModal) {
+    carritoModal.hide();
+  }
 
-  bootstrap.Modal.getInstance(registerModal).hide();
+  loginModal.show();
 }

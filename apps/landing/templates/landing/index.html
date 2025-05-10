@@ -1,12 +1,6 @@
 {% extends 'base.html' %} {% load static %} 
 {% block title %} Main page {% endblock %} {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/landing.css' %}" />
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-  crossorigin=""
-/>
 
 {% endblock %} {% block content %}
 
@@ -159,20 +153,13 @@
 <script>
   console.log("Index page loaded");
 </script>
-<script
-  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-  crossorigin=""
-></script>
-<script>
-  var map = L.map("map").setView([-33.033643, -71.532846], 18);
-</script>
 
 <script>
+  var map = L.map("map").setView([-33.033643, -71.532846], 18);
+
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
-    attribution:
-      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(map);
 </script>
 

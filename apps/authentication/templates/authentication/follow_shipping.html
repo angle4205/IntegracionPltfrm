@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Seguimiento del Envío{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/shipping.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1 class="mb-4">Seguimiento del Envío</h1>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Estado del Envío</h5>
+      {% if cart.estado == "ENVIADO" %}
+      <p class="card-text">
+        Tu pedido ha sido enviado. <br />
+        Dirección de envío: {{ cart.direccion_envio.address }}
+      </p>
+      <p class="card-text">
+        <strong>Estado:</strong> {{ cart.estado }}
+      </p>
+      <p class="card-text">
+        <strong>Fecha de Envío:</strong> {{ cart.updated_at|date:"d/m/Y H:i" }}
+      </p>
+      {% elif cart.estado == "ENTREGADO" %}
+      <p class="card-text text-success">
+        ¡Tu pedido ha sido entregado! <br />
+        Dirección de envío: {{ cart.direccion_envio.address }}
+      </p>
+      {% else %}
+      <p class="card-text text-muted">
+        Tu pedido está en estado: <strong>{{ cart.estado }}</strong>.
+      </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  console.log("Follow Shipping page loaded");
+</script>
+{% endblock %}

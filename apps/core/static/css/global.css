@@ -221,6 +221,11 @@ textarea:focus {
   color: #000000; /* Black text */
 }
 
+.shippingmap {
+  height: 400px; /* Set a fixed height */
+  width: 100%; /* Full width */
+}
+
 /* Responsive adjustments */
 @media (max-width: 991.98px) {
   .navbar-collapse .navbar-nav .nav-item {

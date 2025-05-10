@@ -1,17 +1,19 @@
 from django.contrib.auth import login, logout, authenticate
 from django.http import JsonResponse
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 from django.contrib.auth.models import User
+from .models import Address, Cart
+
 
 def login_view(request):
     if request.method == "POST":
-        print("login_view endpoint hit.") 
+        print("login_view endpoint hit.")
         try:
-            
+
             data = json.loads(request.body)
             username = data.get("username")
             password = data.get("password")
@@ -22,7 +24,6 @@ def login_view(request):
                     {"error": "Username and password are required."}, status=400
                 )
 
-            
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
@@ -44,9 +45,9 @@ def login_view(request):
 
 def register_view(request):
     if request.method == "POST":
-        print("register_view endpoint hit.")  
+        print("register_view endpoint hit.")
         try:
-            
+
             data = json.loads(request.body)
             username = data.get("username")
             password = data.get("password")
@@ -58,7 +59,6 @@ def register_view(request):
                     {"error": "Username and password are required."}, status=400
                 )
 
-            
             if User.objects.filter(username=username).exists():
                 print("Error: Username already exists.")
                 return JsonResponse({"error": "Username already exists."}, status=400)
@@ -89,6 +89,13 @@ def logout_view(request):
 @login_required
 def profile(request):
     return render(request, "authentication/profile.html")
+
+@login_required
+def follow_shipping(request):
+    cart = Cart.objects.filter(
+        user=request.user, estado__in=["ENVIADO", "ENTREGADO"]
+    ).first()
+    return render(request, "authentication/follow_shipping.html", {"cart": cart})
 
 
 @ensure_csrf_cookie
