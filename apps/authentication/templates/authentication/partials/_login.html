@@ -18,7 +18,36 @@
           <p class="text-muted">Inicia sesion o registrate para continuar.</p>
         </div>
         <!-- Acá va el formulario -->
-         <button type="submit" class="btn btn-success">Iniciar sesion</button>
+        <form id="loginForm">
+          <div class="mb-3">
+            <label for="loginUsername" class="form-label">Usuario</label>
+            <input
+              type="text"
+              class="form-control"
+              id="loginUsername"
+              name="username"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="loginPassword" class="form-label">Contraseña</label>
+            <input
+              type="password"
+              class="form-control"
+              id="loginPassword"
+              name="password"
+              required
+            />
+          </div>
+          <div
+            id="loginError"
+            class="text-danger mb-2"
+            style="display: none"
+          ></div>
+          <button type="submit" class="btn btn-success w-100">
+            Iniciar sesión
+          </button>
+        </form>
       </div>
 
       <div class="modal-footer">

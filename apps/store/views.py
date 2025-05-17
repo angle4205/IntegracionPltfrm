@@ -3,13 +3,14 @@ from .models import Producto
 from apps.authentication.models import (
     Cart,
     ItemCarrito,
-) 
+)
 from django.db.models import Q
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from decimal import Decimal
 import json
+from decimal import Decimal, ROUND_DOWN
 
 
 def get_or_create_cart(request):
@@ -106,7 +107,10 @@ def obtener_carrito(request):
         cart = get_or_create_cart(request)
         items = []
 
+        subtotal_con_iva = Decimal("0.00")
         for item in cart.items.all():
+            item_subtotal = item.precio_unitario * item.cantidad
+            subtotal_con_iva += item_subtotal
             items.append(
                 {
                     "id": item.id,
@@ -118,21 +122,49 @@ def obtener_carrito(request):
                         if item.producto.imagen_principal
                         else ""
                     ),
-                    "precio_unitario": float(item.precio_unitario),
+                    "precio_unitario": int(item.precio_unitario),  # <-- aquí
                     "cantidad": item.cantidad,
-                    "subtotal": float(item.subtotal()),
+                    "subtotal": int(item_subtotal),  # <-- aquí
                 }
             )
+
+        iva = subtotal_con_iva * Decimal("19") / Decimal("119")
+        subtotal_sin_iva = subtotal_con_iva - iva
+        costo_despacho = getattr(cart, "costo_despacho", Decimal("0.00"))
+        total = subtotal_con_iva + costo_despacho
+
+        # Truncar a 2 decimales (no redondear)
+        def trunc2(val):
+            return str(val.quantize(Decimal("0.01"), rounding=ROUND_DOWN))
+
+        subtotal_sin_iva = trunc2(subtotal_sin_iva)
+        iva = subtotal_con_iva * Decimal("19") / Decimal("119")
+        subtotal_sin_iva = subtotal_con_iva - iva
+        costo_despacho = getattr(cart, "costo_despacho", Decimal("0.00"))
+        total = subtotal_con_iva + costo_despacho
+
+        # Truncar a 0 decimales (entero hacia abajo)
+        def trunc0(val):
+            return int(val.quantize(Decimal("1"), rounding=ROUND_DOWN))
+
+        subtotal_sin_iva = trunc0(subtotal_sin_iva)
+        iva = trunc0(iva)
+        costo_despacho = trunc0(costo_despacho)
+        total = trunc0(total)
 
         return JsonResponse(
             {
                 "success": True,
                 "items": items,
-                "subtotal": float(cart.subtotal),
-                "iva": float(cart.iva),
-                "costo_despacho": float(cart.costo_despacho),
-                "total": float(cart.total),
+                "subtotal": subtotal_sin_iva,
+                "iva": iva,
+                "costo_despacho": costo_despacho,
+                "total": total,
                 "carrito_count": cart.items.count(),
+                "direccion_envio": (
+                    cart.direccion_envio.address if cart.direccion_envio else None
+                ),
+                "metodo_despacho": cart.metodo_despacho,
             }
         )
     except Exception as e:

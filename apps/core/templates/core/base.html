@@ -33,9 +33,9 @@
 
     <main class="main-content">{% block content %}{% endblock %}</main>
 
-    {% include 'partials/_footer.html' %} {% include
-    'authentication/partials/_login.html' %} {% include
-    'authentication/partials/_register.html' %}
+    {% include 'partials/_footer.html' %} 
+    {% include 'authentication/partials/_login.html' %}
+    {% include 'authentication/partials/_register.html' %}
     <!-- Carrito Modal -->
     <div
       class="modal fade"
@@ -132,74 +132,67 @@
     </div>
 
     <!-- Seleccionar Dirección -->
-    <div
-      class="modal fade"
-      id="addressModal"
-      tabindex="-1"
-      aria-labelledby="addressModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
           <div class="modal-header bg-primary text-white">
             <h5 class="modal-title" id="addressModalLabel">
               <i class="bi bi-geo-alt-fill me-2"></i>Seleccionar Dirección
             </h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form
-              method="POST"
-              action="{% url 'core:select_shipping_address' %}"
-            >
+            <form method="POST" action="{% url 'core:select_shipping_address' %}" id="shippingAddressForm">
               {% csrf_token %}
-
-              <!-- Leaflet Map -->
-              <div
-                id="addressMap"
-                class="shippingmap"
-                style="height: 400px; margin-bottom: 20px"
-              ></div>
-
-              <!-- Address Input -->
+    
+              <!-- Direcciones guardadas -->
               <div class="mb-4">
-                <h4>Dirección</h4>
-                <p>Ciudad, Calle</p>
-                <input
-                  type="text"
-                  id="addressInput"
-                  class="form-control"
-                  name="new_address"
-                  placeholder="Ingresa una dirección"
-                />
+                <h4>Mis Direcciones</h4>
+                {% for address in request.user.address_set.all %}
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="selected_address" value="{{ address.id }}"
+                    id="address{{ address.id }}">
+                  <label class="form-check-label" for="address{{ address.id }}">
+                    {{ address.address }}
+                  </label>
+                </div>
+                {% empty %}
+                <div class="text-muted small">No tienes direcciones guardadas.</div>
+                {% endfor %}
               </div>
-
+    
+              <!-- Leaflet Map para nueva dirección -->
+              <div id="addressMap" class="shippingmap" style="height: 400px; margin-bottom: 20px"></div>
+    
+              <!-- Nueva dirección -->
+              <div class="mb-4">
+                <h4>Agregar Nueva Dirección</h4>
+                <input type="text" id="addressInput" class="form-control" name="new_address"
+                  placeholder="Ingresa una dirección" />
+                <!-- Seleccionar nueva dirección -->
+                <div class="form-check mt-2">
+                  <input class="form-check-input" type="radio" name="selected_address" value="new" id="newAddressOption">
+                  <label class="form-check-label" for="newAddressOption">
+                    Despacho a esta dirección
+                  </label>
+                </div>
+              </div>
+    
               <!-- Latitude and Longitude (Hidden Inputs) -->
               <input type="hidden" id="latitude" name="latitude" />
               <input type="hidden" id="longitude" name="longitude" />
-
+    
               <!-- Pickup in Store Option -->
               <div class="mb-4">
                 <h4>Retiro en Tienda</h4>
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="selected_address"
-                    value="pickup"
-                    id="pickupOption"
-                  />
+                  <input class="form-check-input" type="radio" name="selected_address" value="pickup" id="pickupOption" />
                   <label class="form-check-label" for="pickupOption">
                     Retiro en tienda
                   </label>
                 </div>
               </div>
-
+    
               <!-- Submit Button -->
               <button type="submit" class="btn btn-primary w-100">
                 Confirmar Dirección
@@ -210,7 +203,6 @@
       </div>
     </div>
 
-    <script src="{% static 'js/auth.js' %}"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       AOS.init();
@@ -221,6 +213,8 @@
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
       crossorigin=""
     ></script>
+    <script src="{% static 'js/auth.js' %}"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
     <script>
       // Inicializar el mapa
       var addressMap = L.map("addressMap").setView([-33.4489, -70.6693], 13);
@@ -230,7 +224,7 @@
         maxZoom: 19,
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
+      }).addTo(addressMap);
 
       var addressModal = document.getElementById("addressModal");
       addressModal.addEventListener("shown.bs.modal", function () {
@@ -239,7 +233,7 @@
 
       // Crear un marcador
       var marker = L.marker([-33.4489, -70.6693], { draggable: true }).addTo(
-        map
+        addressMap
       );
 
       // Actualizar inputs al mover el marcador
@@ -280,7 +274,7 @@
 
                 // Actualizar el marcador y el mapa
                 marker.setLatLng([lat, lon]);
-                map.setView([lat, lon], 15);
+                addressMap.setView([lat, lon], 15);
 
                 // Actualizar los inputs ocultos
                 document.getElementById("latitude").value = lat;
@@ -292,9 +286,30 @@
         });
 
       // Recalcular el tamaño del mapa cuando se abra el modal
-      var addressModal = document.getElementById("addressModal");
       addressModal.addEventListener("shown.bs.modal", function () {
-        map.invalidateSize(); // Recalcular el tamaño del mapa
+        addressMap.invalidateSize(); // Recalcular el tamaño del mapa
+      });
+    </script>
+    <script>
+      document.getElementById("shippingAddressForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const response = await fetch("{% url 'core:select_shipping_address' %}", {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": getCSRFToken(),
+          },
+          body: formData,
+        });
+        const data = await response.json();
+        if (data.success) {
+          // Cierra el modal y actualiza el carrito
+          var modal = bootstrap.Modal.getInstance(document.getElementById("addressModal"));
+          modal.hide();
+          actualizarCarritoModal();
+        } else {
+          alert("Error al seleccionar dirección");
+        }
       });
     </script>
     {% block extra_js %}{% endblock %}

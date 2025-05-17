@@ -8,8 +8,6 @@ Pasos:
 
 4. pip install Pillow
 
-5. descargar el admin sdk de firebase y ponerlo en /config/
-
 6. python manage.py runserver   
 
 

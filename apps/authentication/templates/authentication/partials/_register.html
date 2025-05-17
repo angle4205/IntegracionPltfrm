@@ -20,7 +20,48 @@
           </p>
         </div>
         <!-- Acá va el formulario de registro -->
-        <button type="submit" class="btn btn-success">Registrarse</button>
+        <form id="registerForm">
+          <div class="mb-3">
+            <label for="registerUsername" class="form-label">Usuario</label>
+            <input
+              type="text"
+              class="form-control"
+              id="registerUsername"
+              name="username"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="registerEmail" class="form-label"
+              >Correo electrónico</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              id="registerEmail"
+              name="email"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="registerPassword" class="form-label">Contraseña</label>
+            <input
+              type="password"
+              class="form-control"
+              id="registerPassword"
+              name="password"
+              required
+            />
+          </div>
+          <div
+            id="registerError"
+            class="text-danger mb-2"
+            style="display: none"
+          ></div>
+          <button type="submit" class="btn btn-primary w-100">
+            Registrarse
+          </button>
+        </form>
       </div>
 
       <div class="modal-footer">
