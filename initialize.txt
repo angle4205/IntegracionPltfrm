@@ -8,15 +8,14 @@ Pasos:
 
 4. pip install Pillow
 
-6. python manage.py runserver   
+5. pip install stripe
 
+6. python manage.py runserver   
 
 otros:
 
 python manage.py makemigrations  
 python manage.py migrate    
-
-npx webpack
 
 Limpiar caché navegador:
 

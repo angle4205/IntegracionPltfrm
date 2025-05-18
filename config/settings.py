@@ -70,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                "apps.core.context_processors.stripe_publishable_key",
             ],
         },
     },
@@ -139,3 +140,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_URL = '/authentication/login/'
+
+STRIPE_PUBLISHABLE_KEY = 'añadir llave publica de stripe'
+STRIPE_SECRET_KEY = 'añadir llave secreta de stripe'

@@ -67,6 +67,7 @@
               <h4 class="mb-0">Total:</h4>
               <h4 class="mb-0 text-success" id="carritoTotal">$0</h4>
             </div>
+            <span id="ajusteStripe" class="text-warning small d-block mb-2"></span>
             <div class="d-grid gap-2">
               {% if request.user.is_authenticated %}
               <!-- Botón para seleccionar dirección -->
@@ -243,21 +244,46 @@
   </script>
   <script src="https://js.stripe.com/v3/"></script>
   <script>
-      var stripe = Stripe("{{ STRIPE_PUBLISHABLE_KEY }}");
-      var checkoutButton = document.getElementById("checkout-button");
+    // Usa la función getCSRFToken de cart.js si ya está cargada, si no, define aquí
+    if (typeof getCSRFToken !== "function") {
+      function getCSRFToken() {
+        return (
+          document.querySelector("[name=csrfmiddlewaretoken]")?.value ||
+          document.querySelector('meta[name="csrf-token"]')?.content
+        );
+      }
+    }
 
+    var stripe = Stripe("{{ STRIPE_PUBLISHABLE_KEY }}");
+    var checkoutButton = document.getElementById("checkout-button");
+
+    if (checkoutButton) {
       checkoutButton.addEventListener("click", function () {
-          fetch("/create-checkout-session/", {
-              method: "POST",
+        fetch("/core/create-checkout-session/", {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": getCSRFToken(),
+          },
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("Error en la petición: " + response.status);
+            }
+            return response.json();
           })
-              .then(response => response.json())
-              .then(session => {
-                  return stripe.redirectToCheckout({ sessionId: session.id });
-              })
-              .catch(error => {
-                  console.error("Error:", error);
-              });
+          .then(session => {
+            if (session.id) {
+              return stripe.redirectToCheckout({ sessionId: session.id });
+            } else {
+              alert("No se pudo iniciar el pago. Intenta nuevamente.");
+            }
+          })
+          .catch(error => {
+            alert("Error al iniciar el pago: " + error.message);
+            console.error("Error:", error);
+          });
       });
+    }
   </script>
   {% block extra_js %}{% endblock %}
 </body>

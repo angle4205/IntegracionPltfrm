@@ -102,7 +102,27 @@ async function actualizarCarritoModal() {
     document.getElementById("carritoIva").textContent = "$" + data.iva;
     document.getElementById("carritoDespacho").textContent =
       "$" + data.costo_despacho;
-    document.getElementById("carritoTotal").textContent = "$" + data.total;
+    // Mostrar el total AJUSTADO para Stripe
+    document.getElementById("carritoTotal").textContent =
+      "$" + (data.total_para_stripe || data.total);
+
+    // Mostrar ajuste Stripe si existe
+    let ajusteStripeElem = document.getElementById("ajusteStripe");
+    if (!ajusteStripeElem) {
+      // Si no existe, lo creamos debajo del total
+      const totalElem = document.getElementById("carritoTotal");
+      ajusteStripeElem = document.createElement("div");
+      ajusteStripeElem.id = "ajusteStripe";
+      ajusteStripeElem.className = "text-warning small mt-1";
+      totalElem.parentNode.appendChild(ajusteStripeElem);
+    }
+    if (data.ajuste_stripe && data.ajuste_stripe !== 0) {
+      ajusteStripeElem.textContent = `* El monto fue ajustado en $${
+        data.ajuste_stripe > 0 ? "+" : ""
+      }${data.ajuste_stripe} para cumplir con los requisitos de Stripe.`;
+    } else {
+      ajusteStripeElem.textContent = "";
+    }
 
     // Actualiza el botón de dirección según la selección
     const btnDireccion = document.querySelector(

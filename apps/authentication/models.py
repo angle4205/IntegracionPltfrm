@@ -67,13 +67,13 @@ class Cart(models.Model):
         default="ACTIVO",
     )
     subtotal = models.DecimalField(
-        max_digits=12, decimal_places=2, default=0, validators=[MinValueValidator(0)]
+        max_digits=12, decimal_places=0, default=0, validators=[MinValueValidator(0)]
     )
     iva = models.DecimalField(
-        max_digits=12, decimal_places=2, default=0, validators=[MinValueValidator(0)]
+        max_digits=12, decimal_places=0, default=0, validators=[MinValueValidator(0)]
     )
     total = models.DecimalField(
-        max_digits=12, decimal_places=2, default=0, validators=[MinValueValidator(0)]
+        max_digits=12, decimal_places=0, default=0, validators=[MinValueValidator(0)]
     )
     metodo_despacho = models.CharField(
         max_length=20,
@@ -85,11 +85,11 @@ class Cart(models.Model):
         blank=True,
     )
     direccion_envio = models.ForeignKey(
-        Address, on_delete=models.SET_NULL, null=True, blank=True
+        "Address", on_delete=models.SET_NULL, null=True, blank=True
     )
     costo_despacho = models.DecimalField(
         max_digits=10,
-        decimal_places=2,
+        decimal_places=0,
         default=0,
         validators=[MinValueValidator(0)],
     )
@@ -98,19 +98,26 @@ class Cart(models.Model):
         return f"Cart #{self.id} - {self.user.username} ({self.estado})"
 
     def calcular_totales(self):
-        """Calcula subtotal, IVA y total del carrito"""
         items = self.items.all()
         self.subtotal = sum(item.subtotal() for item in items)
-        self.iva = self.subtotal * Decimal("0.19")
+        self.iva = int(round(self.subtotal * 0.19))
         if self.metodo_despacho == "DESPACHO_DOMICILIO":
+            self.costo_despacho = int(self.costo_despacho or 0)
             self.total = self.subtotal + self.iva + self.costo_despacho
         else:
+            self.costo_despacho = 0
             self.total = self.subtotal + self.iva
-            self.costo_despacho = Decimal("0")
         self.save()
 
+    def total_para_stripe(self):
+        """Devuelve el total ajustado al múltiplo de 50 más cercano (requerido por Stripe CLP)"""
+        return int(round(self.total / 50.0) * 50)
 
-# Item Carrito
+    def ajuste_stripe(self):
+        """Devuelve el ajuste aplicado para Stripe (puede ser 0, + o -)"""
+        return self.total_para_stripe() - int(self.total)
+
+
 class ItemCarrito(models.Model):
     carrito = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="items")
     producto = models.ForeignKey(
@@ -122,4 +129,4 @@ class ItemCarrito(models.Model):
     )
 
     def subtotal(self):
-        return self.cantidad * self.precio_unitario
+        return int(round(self.cantidad * float(self.precio_unitario)))

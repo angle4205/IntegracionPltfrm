@@ -226,6 +226,10 @@ textarea:focus {
   width: 100%; /* Full width */
 }
 
+#ajusteStripe {
+  color: gray !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 991.98px) {
   .navbar-collapse .navbar-nav .nav-item {
