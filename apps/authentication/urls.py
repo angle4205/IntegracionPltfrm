@@ -11,6 +11,7 @@ urlpatterns = [
     path("csrf/", views.get_csrf_token, name="get_csrf_token"),
     path("follow-shipping/", views.follow_shipping, name="follow_shipping"),
     path("select-shipping-address/", views.select_shipping_address, name="select_shipping_address"),
+    path('delete-address/<int:address_id>/', views.delete_address, name='delete_address'),
     path("edit-profile/", views.edit_profile, name="edit_profile"),
     path("edit-photo/", views.edit_photo, name="edit_photo"),
 ]

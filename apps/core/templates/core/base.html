@@ -2,316 +2,246 @@
 
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="csrf-token" content="{{ csrf_token }}" />
-    <title>{% block title %}Landing Page{% endblock %}</title>
 
-    <!-- CSS Imports -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""
-    />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'css/global.css' %}" />
-    {% block extra_css %}{% endblock %}
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="csrf-token" content="{{ csrf_token }}" />
+  <title>{% block title %}Landing Page{% endblock %}</title>
 
-  <body>
-    {% include 'partials/_navbar.html' %}
+  <!-- CSS Imports -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/global.css' %}" />
+  {% block extra_css %}{% endblock %}
+</head>
 
-    <main class="main-content">{% block content %}{% endblock %}</main>
+<body>
+  {% include 'partials/_navbar.html' %}
 
-    {% include 'partials/_footer.html' %} 
-    {% include 'authentication/partials/_login.html' %}
-    {% include 'authentication/partials/_register.html' %}
-    <!-- Carrito Modal -->
-    <div
-      class="modal fade"
-      id="carritoModal"
-      tabindex="-1"
-      aria-labelledby="carritoModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title" id="carritoModalLabel">
-              <i class="bi bi-cart-fill me-2"></i>Tu Carrito de Compras
-            </h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div id="carritoContenido">
-              <div class="text-center py-5">
-                <i class="bi bi-cart-x text-muted" style="font-size: 3rem"></i>
-                <p class="mt-3">Tu carrito está vacío</p>
-                <a
-                  href="{% url 'store:lista_productos' %}"
-                  class="btn btn-danger mt-2"
-                >
-                  <i class="bi bi-arrow-right me-1"></i>Seguir comprando
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer bg-light">
-            <div class="w-100">
-              <div
-                class="d-flex justify-content-between align-items-center mb-3"
-              >
-                <h5 class="mb-0">Subtotal:</h5>
-                <h5 class="mb-0" id="carritoSubtotal">$0</h5>
-              </div>
-              <div
-                class="d-flex justify-content-between align-items-center mb-3"
-              >
-                <span class="text-muted">IVA (19%):</span>
-                <span id="carritoIva">$0</span>
-              </div>
-              <div
-                class="d-flex justify-content-between align-items-center mb-3"
-              >
-                <span class="text-muted">Despacho:</span>
-                <span id="carritoDespacho">$0</span>
-              </div>
-              <hr />
-              <div
-                class="d-flex justify-content-between align-items-center mb-3"
-              >
-                <h4 class="mb-0">Total:</h4>
-                <h4 class="mb-0 text-success" id="carritoTotal">$0</h4>
-              </div>
-              <div class="d-grid gap-2">
-                {% if request.user.is_authenticated %}
-                <!-- Botón para seleccionar dirección -->
-                <button
-                  class="btn btn-danger btn-lg"
-                  data-bs-toggle="modal"
-                  data-bs-target="#addressModal"
-                >
-                  <i class="bi bi-geo-alt-fill me-2"></i>Seleccionar Dirección
-                </button>
-                <!-- Botón para pagar -->
-                <button class="btn btn-success btn-lg">
-                  <i class="bi bi-credit-card me-2"></i>Pagar
-                </button>
-                {% else %}
-                <!-- Botón para iniciar sesión -->
-                <a onclick="openLoginModal()" class="btn btn-primary btn-lg">
-                  <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
-                </a>
-                {% endif %}
-                <button
-                  class="btn btn-outline-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  <i class="bi bi-arrow-left me-2"></i>Seguir comprando
-                </button>
-              </div>
+  <main class="main-content">{% block content %}{% endblock %}</main>
+
+  {% include 'partials/_footer.html' %}
+  {% include 'authentication/partials/_login.html' %}
+  {% include 'authentication/partials/_register.html' %}
+  <!-- Carrito Modal -->
+  <div class="modal fade" id="carritoModal" tabindex="-1" aria-labelledby="carritoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="carritoModalLabel">
+            <i class="bi bi-cart-fill me-2"></i>Tu Carrito de Compras
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="carritoContenido">
+            <div class="text-center py-5">
+              <i class="bi bi-cart-x text-muted" style="font-size: 3rem"></i>
+              <p class="mt-3">Tu carrito está vacío</p>
+              <a href="{% url 'store:lista_productos' %}" class="btn btn-danger mt-2">
+                <i class="bi bi-arrow-right me-1"></i>Seguir comprando
+              </a>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- Seleccionar Dirección -->
-    <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title" id="addressModalLabel">
-              <i class="bi bi-geo-alt-fill me-2"></i>Seleccionar Dirección
-            </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form method="POST" action="{% url 'core:select_shipping_address' %}" id="shippingAddressForm">
-              {% csrf_token %}
-    
-              <!-- Direcciones guardadas -->
-              <div class="mb-4">
-                <h4>Mis Direcciones</h4>
-                {% for address in request.user.address_set.all %}
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="selected_address" value="{{ address.id }}"
-                    id="address{{ address.id }}">
-                  <label class="form-check-label" for="address{{ address.id }}">
-                    {{ address.address }}
-                  </label>
-                </div>
-                {% empty %}
-                <div class="text-muted small">No tienes direcciones guardadas.</div>
-                {% endfor %}
-              </div>
-    
-              <!-- Leaflet Map para nueva dirección -->
-              <div id="addressMap" class="shippingmap" style="height: 400px; margin-bottom: 20px"></div>
-    
-              <!-- Nueva dirección -->
-              <div class="mb-4">
-                <h4>Agregar Nueva Dirección</h4>
-                <input type="text" id="addressInput" class="form-control" name="new_address"
-                  placeholder="Ingresa una dirección" />
-                <!-- Seleccionar nueva dirección -->
-                <div class="form-check mt-2">
-                  <input class="form-check-input" type="radio" name="selected_address" value="new" id="newAddressOption">
-                  <label class="form-check-label" for="newAddressOption">
-                    Despacho a esta dirección
-                  </label>
-                </div>
-              </div>
-    
-              <!-- Latitude and Longitude (Hidden Inputs) -->
-              <input type="hidden" id="latitude" name="latitude" />
-              <input type="hidden" id="longitude" name="longitude" />
-    
-              <!-- Pickup in Store Option -->
-              <div class="mb-4">
-                <h4>Retiro en Tienda</h4>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="selected_address" value="pickup" id="pickupOption" />
-                  <label class="form-check-label" for="pickupOption">
-                    Retiro en tienda
-                  </label>
-                </div>
-              </div>
-    
-              <!-- Submit Button -->
-              <button type="submit" class="btn btn-primary w-100">
-                Confirmar Dirección
+        <div class="modal-footer bg-light">
+          <div class="w-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="mb-0">Subtotal:</h5>
+              <h5 class="mb-0" id="carritoSubtotal">$0</h5>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted">IVA (19%):</span>
+              <span id="carritoIva">$0</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted">Despacho:</span>
+              <span id="carritoDespacho">$0</span>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h4 class="mb-0">Total:</h4>
+              <h4 class="mb-0 text-success" id="carritoTotal">$0</h4>
+            </div>
+            <div class="d-grid gap-2">
+              {% if request.user.is_authenticated %}
+              <!-- Botón para seleccionar dirección -->
+              <button class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#addressModal">
+                <i class="bi bi-geo-alt-fill me-2"></i>Seleccionar Dirección
               </button>
-            </form>
+              <!-- Botón para pagar -->
+              <button class="btn btn-success btn-lg">
+                <i class="bi bi-credit-card me-2"></i>Pagar
+              </button>
+              {% else %}
+              <!-- Botón para iniciar sesión -->
+              <a onclick="openLoginModal()" class="btn btn-primary btn-lg">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+              </a>
+              {% endif %}
+              <button class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                <i class="bi bi-arrow-left me-2"></i>Seguir comprando
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-      AOS.init();
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""
-    ></script>
-    <script src="{% static 'js/auth.js' %}"></script>
-    <script src="{% static 'js/cart.js' %}"></script>
-    <script>
-      // Inicializar el mapa
-      var addressMap = L.map("addressMap").setView([-33.4489, -70.6693], 13);
+  <!-- Seleccionar Dirección -->
+  <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="addressModalLabel">
+            <i class="bi bi-geo-alt-fill me-2"></i>Seleccionar Dirección
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="{% url 'core:select_shipping_address' %}" id="shippingAddressForm">
+            {% csrf_token %}
 
-      // Agregar capas de OpenStreetMap
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(addressMap);
+            <!-- Direcciones guardadas como lista desplegable -->
+            <div class="mb-4">
+              <h4>Mis Direcciones</h4>
+              {% if request.user.addresses.exists %}
+              <select class="form-select" name="selected_address" id="savedAddressesSelect">
+                <option value="" selected disabled>Selecciona una dirección guardada</option>
+                {% for address in request.user.addresses.all %}
+                <option value="{{ address.id }}" data-lat="{{ address.latitude }}" data-lng="{{ address.longitude }}">
+                  {{ address.address }}
+                </option>
+                {% endfor %}
+              </select>
+              {% else %}
+              <div class="text-muted small">No tienes direcciones guardadas.</div>
+              {% endif %}
+            </div>
+            <!-- Leaflet Map para nueva dirección -->
+            <div id="addressMap" class="shippingmap" style="height: 400px; margin-bottom: 20px"></div>
 
-      var addressModal = document.getElementById("addressModal");
-      addressModal.addEventListener("shown.bs.modal", function () {
-        addressMap.invalidateSize();
-      });
+            <!-- Nueva dirección -->
+            <div class="mb-4">
+              <h4>Agregar Nueva Dirección</h4>
+              <textarea id="addressInput" name="new_address" class="form-control"
+                placeholder="Ej: Lisboa 347, Viña del Mar, Región de Valparaíso, Chile" rows="2"
+                style="resize: vertical;" required></textarea>
+              <div class="form-check mt-2">
+                <input class="form-check-input" type="radio" name="selected_address" value="new" id="newAddressOption">
+                <label class="form-check-label" for="newAddressOption">
+                  Despacho a esta dirección
+                </label>
+              </div>
+            </div>
 
-      // Crear un marcador
-      var marker = L.marker([-33.4489, -70.6693], { draggable: true }).addTo(
-        addressMap
-      );
+            <!-- Latitude and Longitude (Hidden Inputs) -->
+            <input type="hidden" id="latitude" name="latitude" />
+            <input type="hidden" id="longitude" name="longitude" />
 
-      // Actualizar inputs al mover el marcador
-      marker.on("dragend", function (e) {
-        var latLng = marker.getLatLng();
-        document.getElementById("latitude").value = latLng.lat;
-        document.getElementById("longitude").value = latLng.lng;
+            <!-- Pickup in Store Option -->
+            <div class="mb-4">
+              <h4>Retiro en Tienda</h4>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="selected_address" value="pickup" id="pickupOption" />
+                <label class="form-check-label" for="pickupOption">
+                  Retiro en tienda
+                </label>
+              </div>
+            </div>
 
-        // Obtener dirección inversa (opcional)
-        fetch(
-          `https://nominatim.openstreetmap.org/reverse?lat=${latLng.lat}&lon=${latLng.lng}&format=json`
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            if (data && data.display_name) {
-              document.getElementById("addressInput").value = data.display_name;
-            }
-          });
-      });
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary w-100">
+              Confirmar Dirección
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
-      // Buscar dirección al escribir en el input
-      document
-        .getElementById("addressInput")
-        .addEventListener("change", function () {
-          var address = this.value;
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="{% static 'js/auth.js' %}"></script>
+  <script src="{% static 'js/cart.js' %}"></script>
+  <script>
+    // Inicializar el mapa
+    var addressMap = L.map("addressMap").setView([-33.4489, -70.6693], 13);
 
-          // Usar Nominatim para geocodificar la dirección
-          fetch(
-            `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
-              address
-            )}&format=json&addressdetails=1&limit=1`
-          )
-            .then((response) => response.json())
-            .then((data) => {
-              if (data && data.length > 0) {
-                var lat = data[0].lat;
-                var lon = data[0].lon;
+    // Agregar capas de OpenStreetMap
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(addressMap);
 
-                // Actualizar el marcador y el mapa
-                marker.setLatLng([lat, lon]);
-                addressMap.setView([lat, lon], 15);
+    var addressModal = document.getElementById("addressModal");
+    addressModal.addEventListener("shown.bs.modal", function () {
+      addressMap.invalidateSize();
+    });
 
-                // Actualizar los inputs ocultos
-                document.getElementById("latitude").value = lat;
-                document.getElementById("longitude").value = lon;
-              } else {
-                alert("No se encontró la dirección. Intenta nuevamente.");
-              }
-            });
+    // Crear un marcador
+    var marker = L.marker([-33.4489, -70.6693], { draggable: true }).addTo(addressMap);
+
+    // Al hacer click en el mapa, mover el marcador y actualizar el textarea
+    addressMap.on("click", function (e) {
+      var lat = e.latlng.lat;
+      var lng = e.latlng.lng;
+      marker.setLatLng([lat, lng]);
+      document.getElementById("latitude").value = lat;
+      document.getElementById("longitude").value = lng;
+      document.getElementById("newAddressOption").checked = true;
+      document.getElementById("pickupOption").checked = false;
+      // Obtener dirección inversa
+      fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data && data.display_name) {
+            document.getElementById("addressInput").value = data.display_name;
+          }
         });
+    });
 
-      // Recalcular el tamaño del mapa cuando se abra el modal
-      addressModal.addEventListener("shown.bs.modal", function () {
-        addressMap.invalidateSize(); // Recalcular el tamaño del mapa
-      });
-    </script>
-    <script>
-      document.getElementById("shippingAddressForm").addEventListener("submit", async function (e) {
+    // Al mover el marcador, igual que el click en el mapa
+    marker.on("dragend", function (e) {
+      var latLng = marker.getLatLng();
+      document.getElementById("latitude").value = latLng.lat;
+      document.getElementById("longitude").value = latLng.lng;
+      fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${latLng.lat}&lon=${latLng.lng}&format=json`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data && data.display_name) {
+            document.getElementById("addressInput").value = data.display_name;
+          }
+        });
+    });
+
+    document.getElementById("shippingAddressForm").addEventListener("submit", function (e) {
+      var address = document.getElementById("addressInput").value.trim();
+      // Busca un número de 1 a 6 dígitos que NO esté al final (antes del último bloque de números)
+      // Acepta: "Calle 123, ...", "123, Calle, ...", "..., 123, ...", pero NO solo código postal al final
+      if (!/(^|,\s*)\d{1,6}(?=,)/.test(address)) {
         e.preventDefault();
-        const formData = new FormData(this);
-        const response = await fetch("{% url 'core:select_shipping_address' %}", {
-          method: "POST",
-          headers: {
-            "X-CSRFToken": getCSRFToken(),
-          },
-          body: formData,
-        });
-        const data = await response.json();
-        if (data.success) {
-          // Cierra el modal y actualiza el carrito
-          var modal = bootstrap.Modal.getInstance(document.getElementById("addressModal"));
-          modal.hide();
-          actualizarCarritoModal();
-        } else {
-          alert("Error al seleccionar dirección");
-        }
-      });
-    </script>
-    {% block extra_js %}{% endblock %}
-  </body>
+        alert("Por favor, asegúrate de ingresar la dirección con número de casa (ej: Calle 123, 123, Calle, o Calle, 123, Ciudad...)");
+        document.getElementById("addressInput").focus();
+      }
+    });
+  </script>
+  {% block extra_js %}{% endblock %}
+</body>
+
 </html>

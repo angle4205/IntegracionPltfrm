@@ -8,6 +8,8 @@ import json
 from django.contrib.auth.models import User
 from .models import Address, Cart
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, get_object_or_404
 
 
 def login_view(request):
@@ -112,6 +114,7 @@ def follow_shipping(request):
     ).first()
     return render(request, "authentication/follow_shipping.html", {"cart": cart})
 
+
 @require_POST
 @login_required
 def select_shipping_address(request):
@@ -150,6 +153,19 @@ def edit_profile(request):
             user.last_name = data.get("last_name", "")
             user.email = data.get("email", "")
             user.save()
+
+            # Actualizar dirección principal
+            default_address_id = data.get("default_address")
+            if default_address_id:
+                # Desmarcar todas las direcciones del usuario como no predeterminadas
+                Address.objects.filter(user=user, is_default=True).update(
+                    is_default=False
+                )
+                # Marcar la nueva dirección como predeterminada
+                Address.objects.filter(id=default_address_id, user=user).update(
+                    is_default=True
+                )
+
             return JsonResponse({"message": "Perfil actualizado"})
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)
@@ -170,3 +186,10 @@ def edit_photo(request):
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)
     return JsonResponse({"error": "Método no permitido"}, status=405)
+
+
+@login_required
+def delete_address(request, address_id):
+    address = get_object_or_404(Address, id=address_id, user=request.user)
+    address.delete()
+    return redirect(request.META.get("HTTP_REFERER", "/"))

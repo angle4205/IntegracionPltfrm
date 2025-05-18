@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Abrir modales
+  // Abrir modal editar perfil
   document.getElementById("btnEditProfile").onclick = function (e) {
     e.preventDefault();
     new bootstrap.Modal(document.getElementById("editProfileModal")).show();
   };
+  // Abrir modal editar foto
   document.getElementById("btnEditPhoto").onclick = function (e) {
     e.preventDefault();
     new bootstrap.Modal(document.getElementById("editPhotoModal")).show();
@@ -18,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
       first_name: document.getElementById("editFirstName").value,
       last_name: document.getElementById("editLastName").value,
       email: document.getElementById("editEmail").value,
+      default_address: document.getElementById("editDefaultAddress").value,
     };
     try {
       const response = await fetch("/authentication/edit-profile/", {
