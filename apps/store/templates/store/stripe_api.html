@@ -1,0 +1,21 @@
+{% load static %}
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe("{{ STRIPE_PUBLISHABLE_KEY }}");
+    var checkoutButton = document.getElementById("checkout-button");
+
+    checkoutButton.addEventListener("click", function () {
+        fetch("/create-checkout-session/", {
+            method: "POST",
+        })
+            .then(response => response.json())
+            .then(session => {
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    });
+</script>
+{% load static %}
+<script src="{% static 'js/cart.js' %}"></script>
