@@ -231,16 +231,20 @@
           }
         });
     });
-
+  </script>
+  <script>
     document.getElementById("shippingAddressForm").addEventListener("submit", function (e) {
-      var address = document.getElementById("addressInput").value.trim();
-      // Busca un número de 1 a 6 dígitos que NO esté al final (antes del último bloque de números)
-      // Acepta: "Calle 123, ...", "123, Calle, ...", "..., 123, ...", pero NO solo código postal al final
-      if (!/(^|,\s*)\d{1,6}(?=,)/.test(address)) {
-        e.preventDefault();
-        alert("Por favor, asegúrate de ingresar la dirección con número de casa (ej: Calle 123, 123, Calle, o Calle, 123, Ciudad...)");
-        document.getElementById("addressInput").focus();
+      const selected = document.querySelector('input[name="selected_address"]:checked');
+      const address = document.getElementById("addressInput").value.trim();
+      // Solo valida si seleccionó "Agregar Nueva Dirección"
+      if (selected && selected.value === "new") {
+        if (!/(^|,\s*)\d{1,6}(?=,)/.test(address)) {
+          e.preventDefault();
+          alert("Por favor, asegúrate de ingresar la dirección con número de casa (ej: 123, Calle, ...)");
+          document.getElementById("addressInput").focus();
+        }
       }
+      // Si seleccionó dirección guardada o retiro en tienda, no valida el campo de dirección
     });
   </script>
   <script src="https://js.stripe.com/v3/"></script>
@@ -285,6 +289,39 @@
           });
       });
     }
+  </script>
+  <script>
+    // Función para actualizar el atributo required del textarea según la opción seleccionada
+    function updateAddressRequired() {
+      const addressInput = document.getElementById("addressInput");
+      const selected = document.querySelector('input[name="selected_address"]:checked');
+      if (selected && selected.value === "new") {
+        addressInput.required = true;
+      } else {
+        addressInput.required = false;
+      }
+    }
+
+    // Escucha cambios en los radios y el select
+    document.addEventListener("DOMContentLoaded", function () {
+      const radios = document.querySelectorAll('input[name="selected_address"]');
+      radios.forEach(radio => {
+        radio.addEventListener("change", updateAddressRequired);
+      });
+      // También al cambiar el select de direcciones guardadas
+      const select = document.getElementById("savedAddressesSelect");
+      if (select) {
+        select.addEventListener("change", function () {
+          // Selecciona automáticamente el radio de dirección guardada
+          const radio = document.querySelector('input[name="selected_address"]:not([value="new"]):not([value="pickup"])');
+          if (radio) {
+            radio.checked = true;
+          }
+          updateAddressRequired();
+        });
+      }
+      updateAddressRequired();
+    });
   </script>
   {% block extra_js %}{% endblock %}
 </body>
