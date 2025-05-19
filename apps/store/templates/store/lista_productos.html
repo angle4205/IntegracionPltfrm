@@ -73,12 +73,11 @@
             {{ producto.get_categoria_display|truncatechars:15 }}
           </span>
           
-          
           <div class="product-img-container">
             {% if producto.imagen_principal %}
-              <img src="{{ producto.imagen_principal.url }}" class="img-fluid" alt="{{ producto.nombre }}">
+            <img src="{{ producto.imagen_principal.url }}" class="img-fluid product-img-square" alt="{{ producto.nombre }}">
             {% else %}
-              <i class="bi bi-image text-muted" style="font-size: 2rem;"></i>
+            <i class="bi bi-image text-muted" style="font-size: 2rem;"></i>
             {% endif %}
             <span class="badge-categoria">{{ producto.get_categoria_display }}</span>
           </div>
